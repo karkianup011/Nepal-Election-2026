@@ -1,17 +1,89 @@
 {
-"summary":"Counting ongoing across Nepal",
-
-"parties":{
-"rsp":{"won":12,"leading":18,"total":30},
-"nc":{"won":10,"leading":14,"total":24},
-"uml":{"won":8,"leading":11,"total":19},
-"ncp":{"won":4,"leading":6,"total":10}
-},
-
-"constituencies":[
-{"const":"Jhapa-1","candidate":"Candidate A","party":"NC","votes":18400,"status":"counting"},
-{"const":"Jhapa-2","candidate":"Candidate B","party":"RSP","votes":22300,"status":"won"},
-{"const":"Kathmandu-1","candidate":"Candidate C","party":"UML","votes":20110,"status":"counting"}
-]
-
+  "parties": {
+    "rsp": {
+      "name": "RSP",
+      "won": 2,
+      "leading": 69,
+      "total": 71,
+      "color": "#e74c3c"
+    },
+    "nc": {
+      "name": "Nepali Congress",
+      "won": 1,
+      "leading": 9,
+      "total": 10,
+      "color": "#27ae60"
+    },
+    "uml": {
+      "name": "CPN-UML",
+      "won": 0,
+      "leading": 5,
+      "total": 5,
+      "color": "#e67e22"
+    },
+    "ncp": {
+      "name": "NCP Maoist",
+      "won": 0,
+      "leading": 4,
+      "total": 4,
+      "color": "#8e44ad"
+    }
+  },
+  "hotseats": {
+    "jhapa5": {
+      "const": "Jhapa-5",
+      "c1": "Balen Shah",
+      "p1": "RSP",
+      "v1": 17396,
+      "c2": "KP Sharma Oli",
+      "p2": "UML",
+      "v2": 6087,
+      "lead": 11309
+    },
+    "chitwan3": {
+      "const": "Chitwan-3",
+      "c1": "Sobita Gautam",
+      "p1": "RSP",
+      "v1": 4941,
+      "c2": "Renu Dahal",
+      "p2": "Maoist",
+      "v2": 2958,
+      "lead": 1983
+    },
+    "sarlahi4": {
+      "const": "Sarlahi-4",
+      "c1": "Amresh Kr. Singh",
+      "p1": "RSP",
+      "v1": 1908,
+      "c2": "Gagan Thapa",
+      "p2": "NC",
+      "v2": 536,
+      "lead": 1372
+    },
+    "chitwan2": {
+      "const": "Chitwan-2",
+      "c1": "Rabi Lamichhane",
+      "p1": "RSP",
+      "v1": 6700,
+      "c2": "Asmin Ghimire",
+      "p2": "UML",
+      "v2": 2329,
+      "lead": 4371
+    },
+    "rukumE": {
+      "const": "Rukum East",
+      "c1": "Prachanda",
+      "p1": "Maoist",
+      "v1": 1415,
+      "c2": "Lilamani Gautam",
+      "p2": "UML",
+      "v2": 431,
+      "lead": 984
+    }
+  },
+  "summary": "RSP leading with 71 seats (won: 2, leading: 69). Nepali Congress at 10 seats. CPN-UML at 5 seats. NCP Maoist at 4 seats. Counting ongoing across 165 constituencies. Balen Shah leading KP Oli by 11,309 votes in Jhapa-5.",
+  "ticker": "RSP total 71 seats | Balen leads KP Oli by 11,309 in Jhapa-5 | Sobita leads Renu Dahal by 1,983 in Chitwan-3 | Rabi Lamichhane leads by 4,371 in Chitwan-2",
+  "source": "onlinekhabar.com",
+  "lastUpdated": "2026-03-06 12:34 UTC",
+  "countingComplete": false
 }
