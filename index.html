@@ -3,582 +3,478 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🗳️ Nepal Election 2026 — All 165 Constituencies Live</title>
+<title>🗳️ Nepal Election 2026 — Live Results</title>
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --crimson:#e74c3c;--gold:#f39c12;
-    --rsp:#e74c3c;--nc:#27ae60;--uml:#e67e22;--ncp:#8e44ad;--rpm:#2980b9;
-    --bg:#050e1a;--card:#0a1c2e;--card2:#0f2440;--border:#1a3a5c;
-    --text:#e8f4fd;--muted:#6a8fad;
+    --crimson:#e74c3c; --gold:#f39c12; --amber:#e67e22;
+    --rsp:#e74c3c; --nc:#27ae60; --uml:#e67e22; --ncp:#8e44ad;
+    --bg:#050e1a; --card:#0a1c2e; --card2:#0f2440; --border:#1a3a5c;
+    --text:#e8f4fd; --muted:#6a8fad;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--bg);font-family:'Noto Sans',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden}
   body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-    background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(192,57,43,.1) 0%,transparent 60%),
-               radial-gradient(ellipse 600px 400px at 80% 80%,rgba(26,58,107,.18) 0%,transparent 60%)}
-  header{position:sticky;top:0;z-index:100;background:#0a1c2eee;backdrop-filter:blur(12px);border-bottom:3px solid var(--crimson);box-shadow:0 4px 30px rgba(231,76,60,.25)}
-  .header-top{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;gap:12px;flex-wrap:wrap}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand h1{font-family:'Teko',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;line-height:1}
-  .brand h1 span{color:var(--crimson)}
-  .brand .sub{font-size:.68rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
-  .badges{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .badge{display:flex;align-items:center;gap:6px;border-radius:4px;padding:5px 11px;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
-  .badge.live{background:rgba(231,76,60,.15);border:1px solid var(--crimson);color:var(--crimson)}
-  .badge.ecn{background:rgba(243,156,18,.1);border:1px solid var(--gold);color:var(--gold)}
-  .live-dot{width:7px;height:7px;background:var(--crimson);border-radius:50%;animation:pulse 1s infinite}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
-  .summary-row{display:flex;border-top:1px solid var(--border);overflow-x:auto}
-  .sstat{flex:0 0 auto;text-align:center;padding:7px 14px;border-right:1px solid var(--border);min-width:80px}
-  .sstat:last-child{border-right:none}
-  .sstat .n{font-family:'Teko',sans-serif;font-size:1.3rem;line-height:1}
-  .sstat .l{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-  .ticker{background:var(--crimson);padding:6px 0;overflow:hidden;position:relative;z-index:10}
-  .ticker-inner{display:flex;animation:tick 45s linear infinite;white-space:nowrap}
-  .ticker-item{padding:0 28px;font-size:.75rem;font-weight:600;border-right:1px solid rgba(255,255,255,.3)}
-  @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  main{position:relative;z-index:5;max-width:1400px;margin:0 auto;padding:16px}
-  .controls{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
-  .search-box{flex:1;min-width:200px;padding:9px 14px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85rem;outline:none;transition:border-color .2s}
-  .search-box:focus{border-color:var(--crimson)}
-  .search-box::placeholder{color:var(--muted)}
-  select{padding:9px 12px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem;outline:none;cursor:pointer}
-  .filter-btn{padding:9px 14px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all .2s;text-transform:uppercase}
-  .filter-btn.active,.filter-btn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff}
-  .filter-btn.nc-a.active{background:var(--nc);border-color:var(--nc)}
-  .filter-btn.uml-a.active{background:var(--uml);border-color:var(--uml)}
-  .filter-btn.ncp-a.active{background:var(--ncp);border-color:var(--ncp)}
-  .status-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
-  .status-left{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted)}
-  .status-left strong{color:var(--gold)}
-  .manual-refresh{padding:6px 14px;background:rgba(231,76,60,.1);border:1px solid var(--crimson);border-radius:4px;color:var(--crimson);font-size:.72rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s}
-  .manual-refresh:hover{background:rgba(231,76,60,.25)}
-  .party-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:16px}
-  .mini-party{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s}
-  .mini-party::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-  .mini-party.rsp::before{background:var(--rsp)}.mini-party.nc::before{background:var(--nc)}
-  .mini-party.uml::before{background:var(--uml)}.mini-party.ncp::before{background:var(--ncp)}
-  .mini-party.rpm::before{background:var(--rpm)}
-  .mini-party:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.1)}
-  .mini-party .pname{font-family:'Teko',sans-serif;font-size:.95rem;letter-spacing:1px}
-  .mini-party .pnums{display:flex;gap:10px;margin-top:6px}
-  .mini-party .pnum .v{font-family:'Teko',sans-serif;font-size:1.8rem;font-weight:700;line-height:1}
-  .mini-party .pnum .k{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-  .pbar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:8px;overflow:hidden}
-  .pbar-fill{height:100%;border-radius:2px;transition:width 1s ease}
-  .section-title{font-family:'Teko',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+    background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(192,57,43,.12) 0%,transparent 60%),
+               radial-gradient(ellipse 600px 400px at 80% 80%,rgba(26,58,107,.2) 0%,transparent 60%)}
+
+  header{position:relative;z-index:10;background:linear-gradient(135deg,#0a1c2e,#0d2137);border-bottom:3px solid var(--crimson);box-shadow:0 4px 30px rgba(231,76,60,.3)}
+  .header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px;flex-wrap:wrap}
+  .header-brand{display:flex;align-items:center;gap:14px}
+  .header-titles h1{font-family:'Teko',sans-serif;font-size:2rem;font-weight:700;letter-spacing:2px;line-height:1;text-transform:uppercase}
+  .header-titles h1 span{color:var(--crimson)}
+  .header-titles .sub{font-size:.75rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:2px}
+  .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .live-badge{display:flex;align-items:center;gap:8px;background:rgba(231,76,60,.15);border:1px solid var(--crimson);border-radius:4px;padding:6px 14px;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--crimson)}
+  .live-dot{width:8px;height:8px;background:var(--crimson);border-radius:50%;animation:pulse 1s infinite}
+  .auto-badge{display:flex;align-items:center;gap:6px;background:rgba(243,156,18,.1);border:1px solid var(--gold);border-radius:4px;padding:6px 12px;font-size:.75rem;font-weight:700;letter-spacing:2px;color:var(--gold)}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  .header-stats{display:flex;border-top:1px solid var(--border)}
+  .hstat{flex:1;text-align:center;padding:8px 12px;border-right:1px solid var(--border)}
+  .hstat:last-child{border-right:none}
+  .hstat .n{font-family:'Teko',sans-serif;font-size:1.4rem;color:var(--gold);line-height:1}
+  .hstat .l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+  .ticker{background:var(--crimson);padding:7px 0;overflow:hidden;position:relative;z-index:10}
+  .ticker-inner{display:flex;animation:tickerMove 40s linear infinite;white-space:nowrap}
+  .ticker-item{padding:0 30px;font-size:.78rem;font-weight:600;letter-spacing:.5px;border-right:1px solid rgba(255,255,255,.3)}
+  @keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  main{position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:20px 16px 40px}
+
+  .status-bar{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .status-left{display:flex;align-items:center;gap:10px}
+  .status-dot{width:10px;height:10px;border-radius:50%;background:#2ecc71;animation:pulse 2s infinite}
+  .status-text{font-size:.8rem;color:var(--muted)}
+  .status-text strong{color:var(--gold)}
+  .status-source{font-size:.72rem;color:var(--muted);background:rgba(255,255,255,.04);padding:4px 10px;border-radius:4px;border:1px solid var(--border)}
+
+  .section-title{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
   .section-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--gold),transparent)}
-  .table-container{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px}
-  .table-scroll{overflow-x:auto;max-height:65vh;overflow-y:auto}
-  table{width:100%;border-collapse:collapse;font-size:.78rem;min-width:700px}
-  thead{position:sticky;top:0;z-index:10}
+
+  .party-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+  .party-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;position:relative;overflow:hidden;transition:transform .2s;animation:fadeIn .5s ease both}
+  .party-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+  .party-card.rsp::before{background:var(--rsp)}
+  .party-card.nc::before{background:var(--nc)}
+  .party-card.uml::before{background:var(--uml)}
+  .party-card.ncp::before{background:var(--ncp)}
+  .party-card:hover{transform:translateY(-2px)}
+  .party-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .party-name{font-family:'Teko',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:1px}
+  .seat-count{display:flex;gap:16px;margin-bottom:10px}
+  .seat-box{text-align:center}
+  .seat-box .num{font-family:'Teko',sans-serif;font-size:2.2rem;font-weight:700;line-height:1}
+  .seat-box .lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .seat-bar{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:8px}
+  .seat-bar-fill{height:100%;border-radius:3px;transition:width 1s ease}
+
+  .majority-bar{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:28px}
+  .majority-label{display:flex;justify-content:space-between;margin-bottom:10px;font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .majority-label strong{color:var(--gold);font-size:.85rem}
+  .mega-bar{height:28px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;display:flex;position:relative}
+  .mega-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;overflow:hidden;white-space:nowrap;transition:width 1.2s ease}
+  .majority-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--gold);z-index:5}
+  .majority-line::after{content:'138 MAJORITY';position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.6rem;color:var(--gold);white-space:nowrap;font-weight:700;letter-spacing:1px}
+
+  .hotseat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-bottom:28px}
+  .hotseat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .hotseat-header{padding:10px 14px;background:var(--card2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .hotseat-const{font-family:'Teko',sans-serif;font-size:1rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+  .hotseat-status{font-size:.65rem;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+  .status-counting{background:rgba(243,156,18,.2);color:var(--gold);border:1px solid var(--gold)}
+  .status-won{background:rgba(39,174,96,.2);color:#2ecc71;border:1px solid #2ecc71}
+  .hotseat-body{padding:14px}
+  .candidate-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .cand-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Teko',sans-serif;font-size:1.1rem;font-weight:700;border:2px solid}
+  .cand-info{flex:1;min-width:0}
+  .cand-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cand-party{font-size:.7rem;color:var(--muted)}
+  .cand-votes{text-align:right}
+  .cand-votes .vnum{font-family:'Teko',sans-serif;font-size:1.4rem;font-weight:700;line-height:1}
+  .cand-votes .vpct{font-size:.65rem;color:var(--muted)}
+  .vs-bar{height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;margin:8px 0;display:flex}
+  .vs-seg{height:100%;transition:width 1s ease}
+  .lead-tag{display:inline-block;font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+  .lead-tag.leading{background:rgba(231,76,60,.2);color:var(--crimson);border:1px solid var(--crimson)}
+  .lead-tag.won{background:rgba(39,174,96,.2);color:#2ecc71;border:1px solid #2ecc71}
+
+  .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px}
+  table{width:100%;border-collapse:collapse;font-size:.82rem}
   thead tr{background:var(--card2);border-bottom:2px solid var(--crimson)}
-  th{padding:10px 12px;text-align:left;font-family:'Teko',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
-  tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .12s}
+  th{padding:12px 14px;text-align:left;font-family:'Teko',sans-serif;font-size:.9rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+  tbody tr{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
   tbody tr:hover{background:rgba(255,255,255,.03)}
-  tbody tr.won-row{background:rgba(39,174,96,.04)}
-  td{padding:9px 12px;vertical-align:middle}
-  .const-num{font-family:'Teko',sans-serif;font-size:1rem;color:var(--muted);white-space:nowrap}
-  .const-name{font-weight:600;font-size:.82rem}
-  .const-dist{font-size:.68rem;color:var(--muted);margin-top:2px}
-  .prov-badge{display:inline-block;font-size:.6rem;font-weight:600;padding:2px 6px;border-radius:3px;margin-right:4px}
-  .cand-cell{display:flex;align-items:center;gap:8px}
-  .cand-init{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Teko',sans-serif;font-size:.8rem;font-weight:700;flex-shrink:0;border:1.5px solid}
-  .cname{font-weight:600;font-size:.8rem;white-space:nowrap}
-  .cparty{font-size:.65rem;color:var(--muted)}
-  .vnum{font-family:'Teko',sans-serif;font-size:1.1rem;font-weight:700;white-space:nowrap}
-  .margin-cell{font-size:.72rem;color:var(--muted);white-space:nowrap;font-weight:600}
-  .vs-mini{width:56px;height:5px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;display:flex;margin-top:3px}
-  .vs-f{height:100%}
-  .spill{display:inline-flex;align-items:center;gap:4px;font-size:.62rem;font-weight:700;padding:3px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
-  .s-cnt{background:rgba(243,156,18,.15);color:var(--gold);border:1px solid rgba(243,156,18,.4)}
-  .s-won{background:rgba(39,174,96,.15);color:#2ecc71;border:1px solid rgba(39,174,96,.4)}
-  .result-count{font-size:.75rem;color:var(--muted);margin-bottom:10px}
-  .result-count strong{color:var(--gold)}
-  .source-note{background:rgba(26,58,107,.25);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:.73rem;color:var(--muted);line-height:1.7;margin-bottom:20px}
+  tbody tr:last-child{border-bottom:none}
+  td{padding:11px 14px;vertical-align:middle}
+
+  .summary-box{background:var(--card);border:1px solid rgba(243,156,18,.3);border-radius:10px;padding:20px;margin-bottom:28px}
+  .summary-box h3{font-family:'Teko',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);margin-bottom:12px}
+  .summary-text{font-size:.85rem;line-height:1.8;color:var(--text)}
+
+  /* Constituencies table */
+  .const-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px}
+  .const-search{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .const-search input{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:4px;font-size:.8rem;outline:none;flex:1;min-width:180px}
+  .const-search input:focus{border-color:var(--gold)}
+  .const-count{font-size:.72rem;color:var(--muted)}
+  .const-table{width:100%;border-collapse:collapse;font-size:.78rem}
+  .const-table thead tr{background:var(--card2);border-bottom:2px solid var(--crimson)}
+  .const-table th{padding:10px 12px;text-align:left;font-family:'Teko',sans-serif;font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+  .const-table tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
+  .const-table tbody tr:hover{background:rgba(255,255,255,.03)}
+  .const-table td{padding:9px 12px;vertical-align:middle}
+  .won-badge{display:inline-block;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(39,174,96,.2);color:#2ecc71;border:1px solid #2ecc71;text-transform:uppercase;letter-spacing:1px}
+  .counting-badge{display:inline-block;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(243,156,18,.15);color:var(--gold);border:1px solid var(--gold);text-transform:uppercase;letter-spacing:1px}
+
+  .source-note{background:rgba(26,58,107,.3);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:.75rem;color:var(--muted);line-height:1.6}
   .source-note strong{color:var(--text)}
-  footer{text-align:center;padding:18px;color:var(--muted);font-size:.7rem;border-top:1px solid var(--border)}
-  @media(max-width:600px){.brand h1{font-size:1.2rem}th,td{padding:7px 6px}.cand-init{width:22px;height:22px;font-size:.65rem}}
+  .timestamp{font-size:.68rem;color:var(--muted);text-align:right;margin-bottom:6px}
+  .timestamp span{color:var(--gold)}
+  footer{text-align:center;padding:20px;color:var(--muted);font-size:.72rem;border-top:1px solid var(--border);position:relative;z-index:5}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes flash{0%,100%{opacity:1}50%{opacity:.3}}
+  .flash{animation:flash .5s ease 3}
+
+  @media(max-width:600px){
+    .header-titles h1{font-size:1.4rem}
+    .hstat .n{font-size:1.1rem}
+    th,td{padding:9px 8px}
+  }
 </style>
 </head>
 <body>
+
 <header>
   <div class="header-top">
-    <div class="brand">
-      <svg width="34" height="42" viewBox="0 0 42 54" xmlns="http://www.w3.org/2000/svg">
+    <div class="header-brand">
+      <svg width="42" height="52" viewBox="0 0 42 54" xmlns="http://www.w3.org/2000/svg">
         <polygon points="0,0 38,22 22,22 38,52 0,52" fill="#003893"/>
         <polygon points="2,2 34,22 20,22 34,50 2,50" fill="#DC143C"/>
         <g transform="translate(10,30)"><circle cx="5" cy="0" r="4" fill="white" opacity="0.9"/><circle cx="7" cy="0" r="3.2" fill="#DC143C"/></g>
         <g transform="translate(10,16)"><circle cx="5" cy="0" r="4" fill="white" opacity="0.9"/></g>
       </svg>
-      <div>
+      <div class="header-titles">
         <h1>Nepal Election <span>2026</span></h1>
-        <div class="sub">All 165 Constituencies · Live Results · 2082 BS</div>
+        <div class="sub">House of Representatives · Live Results</div>
       </div>
     </div>
-    <div class="badges">
-      <div class="badge ecn">📡 ECN DATA</div>
-      <div class="badge live"><div class="live-dot"></div>LIVE</div>
+    <div class="header-right">
+      <div class="auto-badge">⚡ AUTO-UPDATE</div>
+      <div class="live-badge"><div class="live-dot"></div>LIVE</div>
     </div>
   </div>
-  <div class="summary-row">
-    <div class="sstat"><div class="n" style="color:var(--gold)" id="s-declared">—</div><div class="l">Declared</div></div>
-    <div class="sstat"><div class="n" style="color:var(--rsp)" id="s-rsp">—</div><div class="l">🔔 RSP</div></div>
-    <div class="sstat"><div class="n" style="color:var(--nc)" id="s-nc">—</div><div class="l">🌳 NC</div></div>
-    <div class="sstat"><div class="n" style="color:var(--uml)" id="s-uml">—</div><div class="l">☀️ UML</div></div>
-    <div class="sstat"><div class="n" style="color:var(--ncp)" id="s-ncp">—</div><div class="l">💥 Maoist</div></div>
-    <div class="sstat"><div class="n" style="color:var(--rpm)" id="s-rpm">—</div><div class="l">👑 RPM</div></div>
-    <div class="sstat"><div class="n" style="color:var(--muted)" id="s-others">—</div><div class="l">Others</div></div>
-    <div class="sstat"><div class="n" id="clk">--:--</div><div class="l">NPT</div></div>
-    <div class="sstat"><div class="n" id="rcd">30</div><div class="l">Refresh</div></div>
+  <div class="header-stats">
+    <div class="hstat"><div class="n">275</div><div class="l">Total Seats</div></div>
+    <div class="hstat"><div class="n">165</div><div class="l">FPTP Seats</div></div>
+    <div class="hstat"><div class="n">110</div><div class="l">PR Seats</div></div>
+    <div class="hstat"><div class="n">138</div><div class="l">Majority</div></div>
+    <div class="hstat"><div class="n" id="clock-display">--:--</div><div class="l">Nepal Time</div></div>
+    <div class="hstat"><div class="n" id="refresh-countdown">30</div><div class="l">Sec to Refresh</div></div>
   </div>
 </header>
 
-<div class="ticker"><div class="ticker-inner">
-  <div class="ticker-item" id="tk1">🔴 Loading live results from Election Commission Nepal...</div>
-  <div class="ticker-item">🗳️ Nepal HoR Election 2082 BS — 165 FPTP Constituencies · Counting in progress</div>
-  <div class="ticker-item">📡 Auto-updates from GitHub Actions every 5 min · Page refreshes every 30s</div>
-  <div class="ticker-item">🔔 RSP wave: Leading 90+ seats | Balen vs KP Oli Jhapa-5 | Rabi leads Chitwan-2</div>
-  <div class="ticker-item" id="tk1b">🔴 Loading live results from Election Commission Nepal...</div>
-  <div class="ticker-item">🗳️ Nepal HoR Election 2082 BS — 165 FPTP Constituencies · Counting in progress</div>
-  <div class="ticker-item">📡 Auto-updates from GitHub Actions every 5 min · Page refreshes every 30s</div>
-  <div class="ticker-item">🔔 RSP wave: Leading 90+ seats | Balen vs KP Oli Jhapa-5 | Rabi leads Chitwan-2</div>
+<div class="ticker"><div class="ticker-inner" id="ticker-el">
+  <div class="ticker-item" id="t1">🔴 Loading latest results...</div>
+  <div class="ticker-item" id="t2">🗳️ Nepal HoR Election 2082 BS — Counting in progress</div>
+  <div class="ticker-item" id="t3">📊 Data auto-updating every 5 minutes via GitHub Actions</div>
+  <div class="ticker-item" id="t4">🔔 RSP wave across Nepal | Balen Shah vs KP Oli in Jhapa-5</div>
+  <div class="ticker-item" id="t1b">🔴 Loading latest results...</div>
+  <div class="ticker-item" id="t2b">🗳️ Nepal HoR Election 2082 BS — Counting in progress</div>
+  <div class="ticker-item" id="t3b">📊 Data auto-updating every 5 minutes via GitHub Actions</div>
+  <div class="ticker-item" id="t4b">🔔 RSP wave across Nepal | Balen Shah vs KP Oli in Jhapa-5</div>
 </div></div>
 
 <main>
-  <!-- PARTY CARDS -->
-  <div class="party-row">
-    <div class="mini-party rsp" onclick="setPartyFilter('RSP')">
-      <div class="pname" style="color:var(--rsp)">🔔 RSP</div>
-      <div class="pnums">
-        <div class="pnum"><div class="v" style="color:var(--rsp)" id="p-rsp-w">—</div><div class="k">Won</div></div>
-        <div class="pnum"><div class="v" style="color:var(--rsp)" id="p-rsp-l">—</div><div class="k">Leading</div></div>
-        <div class="pnum"><div class="v" style="color:#fff" id="p-rsp-t">—</div><div class="k">Total</div></div>
-      </div>
-      <div class="pbar"><div class="pbar-fill" style="background:var(--rsp)" id="pb-rsp"></div></div>
-    </div>
-    <div class="mini-party nc" onclick="setPartyFilter('NC')">
-      <div class="pname" style="color:var(--nc)">🌳 Nepali Congress</div>
-      <div class="pnums">
-        <div class="pnum"><div class="v" style="color:var(--nc)" id="p-nc-w">—</div><div class="k">Won</div></div>
-        <div class="pnum"><div class="v" style="color:var(--nc)" id="p-nc-l">—</div><div class="k">Leading</div></div>
-        <div class="pnum"><div class="v" style="color:#fff" id="p-nc-t">—</div><div class="k">Total</div></div>
-      </div>
-      <div class="pbar"><div class="pbar-fill" style="background:var(--nc)" id="pb-nc"></div></div>
-    </div>
-    <div class="mini-party uml" onclick="setPartyFilter('UML')">
-      <div class="pname" style="color:var(--uml)">☀️ CPN-UML</div>
-      <div class="pnums">
-        <div class="pnum"><div class="v" style="color:var(--uml)" id="p-uml-w">—</div><div class="k">Won</div></div>
-        <div class="pnum"><div class="v" style="color:var(--uml)" id="p-uml-l">—</div><div class="k">Leading</div></div>
-        <div class="pnum"><div class="v" style="color:#fff" id="p-uml-t">—</div><div class="k">Total</div></div>
-      </div>
-      <div class="pbar"><div class="pbar-fill" style="background:var(--uml)" id="pb-uml"></div></div>
-    </div>
-    <div class="mini-party ncp" onclick="setPartyFilter('Maoist')">
-      <div class="pname" style="color:var(--ncp)">💥 NCP Maoist</div>
-      <div class="pnums">
-        <div class="pnum"><div class="v" style="color:var(--ncp)" id="p-ncp-w">—</div><div class="k">Won</div></div>
-        <div class="pnum"><div class="v" style="color:var(--ncp)" id="p-ncp-l">—</div><div class="k">Leading</div></div>
-        <div class="pnum"><div class="v" style="color:#fff" id="p-ncp-t">—</div><div class="k">Total</div></div>
-      </div>
-      <div class="pbar"><div class="pbar-fill" style="background:var(--ncp)" id="pb-ncp"></div></div>
-    </div>
-    <div class="mini-party rpm" onclick="setPartyFilter('RPM')">
-      <div class="pname" style="color:var(--rpm)">👑 RPM / RPP</div>
-      <div class="pnums">
-        <div class="pnum"><div class="v" style="color:var(--rpm)" id="p-rpm-w">—</div><div class="k">Won</div></div>
-        <div class="pnum"><div class="v" style="color:var(--rpm)" id="p-rpm-l">—</div><div class="k">Leading</div></div>
-        <div class="pnum"><div class="v" style="color:#fff" id="p-rpm-t">—</div><div class="k">Total</div></div>
-      </div>
-      <div class="pbar"><div class="pbar-fill" style="background:var(--rpm)" id="pb-rpm"></div></div>
-    </div>
-  </div>
-
-  <!-- CONTROLS -->
-  <div class="controls">
-    <input class="search-box" id="search" type="text" placeholder="🔍  Search constituency, candidate, district, party..." oninput="applyFilters()">
-    <select id="prov-filter" onchange="applyFilters()">
-      <option value="">All Provinces</option>
-      <option value="koshi">Koshi</option>
-      <option value="madhesh">Madhesh</option>
-      <option value="bagmati">Bagmati</option>
-      <option value="gandaki">Gandaki</option>
-      <option value="lumbini">Lumbini</option>
-      <option value="karnali">Karnali</option>
-      <option value="sudurpashchim">Sudurpashchim</option>
-    </select>
-    <select id="status-filter" onchange="applyFilters()">
-      <option value="">All Status</option>
-      <option value="counting">Counting</option>
-      <option value="won">Result Declared</option>
-    </select>
-    <button class="filter-btn active" id="fb-all" onclick="setPartyFilter('')">All</button>
-    <button class="filter-btn" id="fb-rsp" onclick="setPartyFilter('RSP')">🔔 RSP</button>
-    <button class="filter-btn nc-a" id="fb-nc" onclick="setPartyFilter('NC')">🌳 NC</button>
-    <button class="filter-btn uml-a" id="fb-uml" onclick="setPartyFilter('UML')">☀️ UML</button>
-    <button class="filter-btn ncp-a" id="fb-ncp" onclick="setPartyFilter('Maoist')">💥 Maoist</button>
-    <button class="filter-btn" id="fb-rpm" onclick="setPartyFilter('RPM')" style="border-color:var(--rpm);color:var(--rpm)">👑 RPM</button>
-  </div>
+  <div class="timestamp">Nepal Time: <span id="clock">--</span> &nbsp;|&nbsp; Data: <span id="data-time">Loading...</span></div>
 
   <div class="status-bar">
-    <div class="status-left" id="status-txt">⏳ Loading...</div>
-    <div style="display:flex;gap:10px;align-items:center">
-      <span style="font-size:.7rem;color:var(--muted)">Refresh in <strong id="rn" style="color:var(--gold)">30</strong>s</span>
-      <button class="manual-refresh" onclick="loadAndRender()">🔄 Now</button>
+    <div class="status-left">
+      <div class="status-dot"></div>
+      <div class="status-text" id="status-text">⏳ Loading latest data from GitHub...</div>
+    </div>
+    <div class="status-source" id="status-source">Source: —</div>
+  </div>
+
+  <div class="section-title">📰 Latest Summary</div>
+  <div class="summary-box">
+    <h3>🗳️ ELECTION BRIEFING</h3>
+    <div class="summary-text" id="summary-text">Loading latest results...</div>
+  </div>
+
+  <div class="section-title">🏆 Party Standings</div>
+  <div class="party-grid" id="party-grid">
+    <div class="party-card rsp">
+      <div class="party-header"><span class="party-name" style="color:var(--rsp)">🔔 RSP</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Rastriya Swatantra Party</div>
+      <div class="seat-count">
+        <div class="seat-box"><div class="num" style="color:var(--rsp)" id="rsp-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--rsp)" id="rsp-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="rsp-total">—</div><div class="lbl">Total</div></div>
+      </div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--rsp);width:0%" id="rsp-bar"></div></div>
+    </div>
+    <div class="party-card nc">
+      <div class="party-header"><span class="party-name" style="color:var(--nc)">🌳 Nepali Congress</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">NC</div>
+      <div class="seat-count">
+        <div class="seat-box"><div class="num" style="color:var(--nc)" id="nc-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--nc)" id="nc-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="nc-total">—</div><div class="lbl">Total</div></div>
+      </div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--nc);width:0%" id="nc-bar"></div></div>
+    </div>
+    <div class="party-card uml">
+      <div class="party-header"><span class="party-name" style="color:var(--uml)">☀️ CPN-UML</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">KP Oli's Party</div>
+      <div class="seat-count">
+        <div class="seat-box"><div class="num" style="color:var(--uml)" id="uml-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--uml)" id="uml-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="uml-total">—</div><div class="lbl">Total</div></div>
+      </div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--uml);width:0%" id="uml-bar"></div></div>
+    </div>
+    <div class="party-card ncp">
+      <div class="party-header"><span class="party-name" style="color:var(--ncp)">💥 NCP Maoist</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Prachanda's Party</div>
+      <div class="seat-count">
+        <div class="seat-box"><div class="num" style="color:var(--ncp)" id="ncp-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--ncp)" id="ncp-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="ncp-total">—</div><div class="lbl">Total</div></div>
+      </div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--ncp);width:0%" id="ncp-bar"></div></div>
     </div>
   </div>
 
-  <div class="section-title">🏛️ All 165 Constituencies</div>
-  <div class="result-count" id="rc"></div>
+  <div class="majority-bar">
+    <div class="majority-label">
+      <span>Seats out of 165 FPTP — <strong>138 needed for majority (of 275)</strong></span>
+      <span>Partial results · counting ongoing</span>
+    </div>
+    <div class="mega-bar" id="mega-bar">
+      <div class="mega-seg" style="flex:1;background:rgba(100,100,100,.2)">Loading...</div>
+      <div class="majority-line"></div>
+    </div>
+    <div style="margin-top:8px;font-size:.7rem;color:var(--muted)">110 PR seats added after FPTP declaration. Total = 275 seats.</div>
+  </div>
 
-  <div class="table-container">
-    <div class="table-scroll" id="tbl">
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;gap:14px">
-        <div style="width:38px;height:38px;border:3px solid rgba(231,76,60,.2);border-top-color:var(--crimson);border-radius:50%;animation:spin .7s linear infinite"></div>
-        <div style="color:var(--muted);font-size:.82rem">Loading results...</div>
-      </div>
-      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+  <div class="section-title">📋 Full Party Summary</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Party</th><th>Won</th><th>Leading</th><th>Total</th><th>%</th></tr></thead>
+      <tbody id="party-tbody">
+        <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">🗺️ All 165 Constituencies</div>
+  <div class="const-wrap">
+    <div class="const-search">
+      <input type="text" id="const-filter" placeholder="Search constituency, candidate, party..." oninput="filterConst()">
+      <span class="const-count" id="const-count">Loading...</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="const-table">
+        <thead><tr><th>Constituency</th><th>District</th><th>Leading / Won</th><th>Votes</th><th>Runner-Up</th><th>Votes</th><th>Status</th></tr></thead>
+        <tbody id="const-tbody"><tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px">Loading...</td></tr></tbody>
+      </table>
     </div>
   </div>
 
   <div class="source-note">
-    <strong>📡 How this updates:</strong> GitHub Actions fetches from OnlineKhabar / Setopati / Kathmandu Post every 5 min → saves to data.json → this page reloads every 30s automatically.<br>
-    <strong>🔗 Official ECN source:</strong> <a href="https://result.election.gov.np" target="_blank" style="color:var(--gold)">result.election.gov.np</a> &nbsp;·&nbsp;
-    <a href="https://nepalvotes.live" target="_blank" style="color:var(--gold)">nepalvotes.live</a> (uses ECN data) &nbsp;·&nbsp;
-    <strong>⚠️ Note:</strong> Constituency data shown are partial counts. Vote counts labelled "Candidate" are estimated trend indicators — actual names/numbers update via GitHub Actions once data.json is populated.
+    <strong>⚠️ Data Note:</strong> Results are automatically fetched every 5 minutes directly from <strong>nepalvotes.live</strong> (official ECN data feed) via GitHub Actions. These are partial counting figures. Always verify final results at <strong>election.gov.np</strong>.
+    <br><br>
+    <strong>🤖 How it works:</strong> A GitHub Actions robot runs every 5 minutes, pulls from the ECN JSON API, and saves results to <code>data.json</code>. This page reads that file every 30 seconds automatically.
   </div>
 </main>
 
-<footer>Nepal HoR Election 2082 BS (2026) · 165 FPTP Constituencies · GitHub Actions auto-update · Official: election.gov.np · Dashboard: karkianup011</footer>
+<footer>
+  Nepal HoR Election 2082 BS (2026) · Auto-updated via GitHub Actions · Data from ECN via nepalvotes.live<br>
+  Official results: <strong>election.gov.np</strong> · Dashboard by karkianup011
+</footer>
 
 <script>
-const PCOLOR = {RSP:'#e74c3c',NC:'#27ae60',UML:'#e67e22',Maoist:'#8e44ad',RPM:'#2980b9',Others:'#6a8fad'};
-const PEMOJI = {RSP:'🔔',NC:'🌳',UML:'☀️',Maoist:'💥',RPM:'👑',Others:'🔷'};
-const PROV_COLOR = {Bagmati:'#3498db',Koshi:'#e74c3c',Madhesh:'#f39c12',Gandaki:'#27ae60',Lumbini:'#8e44ad',Karnali:'#e67e22',Sudurpashchim:'#1abc9c'};
-
-const DATA = [
-  {id:1,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-1',c1:'Ranju Darshana',p1:'RSP',v1:14200,c2:'Ishwar Pokhrel',p2:'UML',v2:6100,won:true},
-  {id:2,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-2',c1:'Manish Jha',p1:'RSP',v1:11800,c2:'Pradeep Gyawali',p2:'UML',v2:5400,won:false},
-  {id:3,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-3',c1:'Sarita Giri',p1:'RSP',v1:10900,c2:'NC Candidate',p2:'NC',v2:4800,won:false},
-  {id:4,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-4',c1:'Pukar Bam',p1:'RSP',v1:9821,c2:'Sachin Timalsena',p2:'NC',v2:2744,won:false},
-  {id:5,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-5',c1:'RSP Candidate',p1:'RSP',v1:8900,c2:'NC Candidate',p2:'NC',v2:3200,won:false},
-  {id:6,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-6',c1:'RSP Candidate',p1:'RSP',v1:9100,c2:'NC Candidate',p2:'NC',v2:3500,won:false},
-  {id:7,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-7',c1:'RSP Candidate',p1:'RSP',v1:8700,c2:'NC Candidate',p2:'NC',v2:3100,won:false},
-  {id:8,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-8',c1:'RSP Candidate',p1:'RSP',v1:7800,c2:'UML Candidate',p2:'UML',v2:2900,won:false},
-  {id:9,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-9',c1:'NC Candidate',p1:'NC',v1:6200,c2:'RSP Candidate',p2:'RSP',v2:5800,won:false},
-  {id:10,prov:'Bagmati',dist:'Kathmandu',name:'Kathmandu-10',c1:'RSP Candidate',p1:'RSP',v1:8400,c2:'Maoist Candidate',p2:'Maoist',v2:2700,won:false},
-  {id:11,prov:'Bagmati',dist:'Bhaktapur',name:'Bhaktapur-1',c1:'RSP Candidate',p1:'RSP',v1:9200,c2:'UML Candidate',p2:'UML',v2:3400,won:false},
-  {id:12,prov:'Bagmati',dist:'Bhaktapur',name:'Bhaktapur-2',c1:'Rajiv Khatri',p1:'RSP',v1:7002,c2:'Mahesh Basnet',p2:'UML',v2:2538,won:false},
-  {id:13,prov:'Bagmati',dist:'Lalitpur',name:'Lalitpur-1',c1:'RSP Candidate',p1:'RSP',v1:8100,c2:'NC Candidate',p2:'NC',v2:3600,won:false},
-  {id:14,prov:'Bagmati',dist:'Lalitpur',name:'Lalitpur-2',c1:'RSP Candidate',p1:'RSP',v1:7400,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:15,prov:'Bagmati',dist:'Lalitpur',name:'Lalitpur-3',c1:'RSP Candidate',p1:'RSP',v1:6800,c2:'UML Candidate',p2:'UML',v2:2400,won:false},
-  {id:16,prov:'Bagmati',dist:'Chitwan',name:'Chitwan-1',c1:'RSP Candidate',p1:'RSP',v1:7200,c2:'NC Candidate',p2:'NC',v2:3100,won:false},
-  {id:17,prov:'Bagmati',dist:'Chitwan',name:'Chitwan-2',c1:'Rabi Lamichhane',p1:'RSP',v1:6700,c2:'Asmin Ghimire',p2:'UML',v2:2329,won:false},
-  {id:18,prov:'Bagmati',dist:'Chitwan',name:'Chitwan-3',c1:'Sobita Gautam',p1:'RSP',v1:4941,c2:'Renu Dahal',p2:'Maoist',v2:2958,won:false},
-  {id:19,prov:'Bagmati',dist:'Chitwan',name:'Chitwan-4',c1:'RSP Candidate',p1:'RSP',v1:5800,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:20,prov:'Bagmati',dist:'Chitwan',name:'Chitwan-5',c1:'RSP Candidate',p1:'RSP',v1:6300,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:21,prov:'Bagmati',dist:'Makwanpur',name:'Makwanpur-1',c1:'RSP Candidate',p1:'RSP',v1:6400,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:22,prov:'Bagmati',dist:'Makwanpur',name:'Makwanpur-2',c1:'NC Candidate',p1:'NC',v1:5200,c2:'RSP Candidate',p2:'RSP',v2:4700,won:false},
-  {id:23,prov:'Bagmati',dist:'Sindhupalchok',name:'Sindhupalchok-1',c1:'NC Candidate',p1:'NC',v1:5600,c2:'RSP Candidate',p2:'RSP',v2:4200,won:false},
-  {id:24,prov:'Bagmati',dist:'Sindhupalchok',name:'Sindhupalchok-2',c1:'UML Candidate',p1:'UML',v1:4800,c2:'NC Candidate',p2:'NC',v2:4100,won:false},
-  {id:25,prov:'Bagmati',dist:'Kavre',name:'Kavre-1',c1:'RSP Candidate',p1:'RSP',v1:6100,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:26,prov:'Bagmati',dist:'Kavre',name:'Kavre-2',c1:'NC Candidate',p1:'NC',v1:5700,c2:'RSP Candidate',p2:'RSP',v2:5100,won:false},
-  {id:27,prov:'Bagmati',dist:'Kavre',name:'Kavre-3',c1:'RSP Candidate',p1:'RSP',v1:5400,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:28,prov:'Bagmati',dist:'Nuwakot',name:'Nuwakot-1',c1:'RSP Candidate',p1:'RSP',v1:5400,c2:'UML Candidate',p2:'UML',v2:2600,won:false},
-  {id:29,prov:'Bagmati',dist:'Nuwakot',name:'Nuwakot-2',c1:'NC Candidate',p1:'NC',v1:5000,c2:'RSP Candidate',p2:'RSP',v2:4500,won:false},
-  {id:30,prov:'Bagmati',dist:'Dhading',name:'Dhading-1',c1:'NC Candidate',p1:'NC',v1:5200,c2:'RSP Candidate',p2:'RSP',v2:4700,won:false},
-  {id:31,prov:'Bagmati',dist:'Dhading',name:'Dhading-2',c1:'RSP Candidate',p1:'RSP',v1:5600,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:32,prov:'Bagmati',dist:'Rasuwa',name:'Rasuwa-1',c1:'RSP Candidate',p1:'RSP',v1:2800,c2:'NC Candidate',p2:'NC',v2:1500,won:false},
-  {id:33,prov:'Bagmati',dist:'Sindhuli',name:'Sindhuli-1',c1:'RSP Candidate',p1:'RSP',v1:5100,c2:'NC Candidate',p2:'NC',v2:2500,won:false},
-  {id:34,prov:'Bagmati',dist:'Sindhuli',name:'Sindhuli-2',c1:'NC Candidate',p1:'NC',v1:4800,c2:'RSP Candidate',p2:'RSP',v2:4200,won:false},
-  {id:35,prov:'Bagmati',dist:'Ramechhap',name:'Ramechhap-1',c1:'Maoist Candidate',p1:'Maoist',v1:3800,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:36,prov:'Bagmati',dist:'Dolakha',name:'Dolakha-1',c1:'RSP Candidate',p1:'RSP',v1:4100,c2:'UML Candidate',p2:'UML',v2:2000,won:false},
-  {id:37,prov:'Koshi',dist:'Jhapa',name:'Jhapa-1',c1:'RSP Candidate',p1:'RSP',v1:8100,c2:'NC Candidate',p2:'NC',v2:3400,won:false},
-  {id:38,prov:'Koshi',dist:'Jhapa',name:'Jhapa-2',c1:'NC Candidate',p1:'NC',v1:7200,c2:'RSP Candidate',p2:'RSP',v2:6100,won:false},
-  {id:39,prov:'Koshi',dist:'Jhapa',name:'Jhapa-3',c1:'RSP Candidate',p1:'RSP',v1:9400,c2:'NC Candidate',p2:'NC',v2:3800,won:false},
-  {id:40,prov:'Koshi',dist:'Jhapa',name:'Jhapa-4',c1:'RSP Candidate',p1:'RSP',v1:8700,c2:'NC Candidate',p2:'NC',v2:3500,won:false},
-  {id:41,prov:'Koshi',dist:'Jhapa',name:'Jhapa-5',c1:'Balen Shah',p1:'RSP',v1:17396,c2:'KP Sharma Oli',p2:'UML',v2:6087,won:false},
-  {id:42,prov:'Koshi',dist:'Jhapa',name:'Jhapa-6',c1:'RSP Candidate',p1:'RSP',v1:8200,c2:'NC Candidate',p2:'NC',v2:3600,won:false},
-  {id:43,prov:'Koshi',dist:'Morang',name:'Morang-1',c1:'RSP Candidate',p1:'RSP',v1:7800,c2:'NC Candidate',p2:'NC',v2:3200,won:false},
-  {id:44,prov:'Koshi',dist:'Morang',name:'Morang-2',c1:'RSP Candidate',p1:'RSP',v1:7200,c2:'NC Candidate',p2:'NC',v2:3100,won:false},
-  {id:45,prov:'Koshi',dist:'Morang',name:'Morang-3',c1:'NC Candidate',p1:'NC',v1:6400,c2:'RSP Candidate',p2:'RSP',v2:5900,won:false},
-  {id:46,prov:'Koshi',dist:'Morang',name:'Morang-4',c1:'RSP Candidate',p1:'RSP',v1:6900,c2:'UML Candidate',p2:'UML',v2:2800,won:false},
-  {id:47,prov:'Koshi',dist:'Morang',name:'Morang-5',c1:'RSP Candidate',p1:'RSP',v1:7100,c2:'NC Candidate',p2:'NC',v2:3000,won:false},
-  {id:48,prov:'Koshi',dist:'Morang',name:'Morang-6',c1:'RSP Candidate',p1:'RSP',v1:6700,c2:'NC Candidate',p2:'NC',v2:3100,won:false},
-  {id:49,prov:'Koshi',dist:'Sunsari',name:'Sunsari-1',c1:'RSP Candidate',p1:'RSP',v1:6700,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:50,prov:'Koshi',dist:'Sunsari',name:'Sunsari-2',c1:'RSP Candidate',p1:'RSP',v1:6200,c2:'UML Candidate',p2:'UML',v2:2700,won:false},
-  {id:51,prov:'Koshi',dist:'Sunsari',name:'Sunsari-3',c1:'NC Candidate',p1:'NC',v1:5800,c2:'RSP Candidate',p2:'RSP',v2:5200,won:false},
-  {id:52,prov:'Koshi',dist:'Sunsari',name:'Sunsari-4',c1:'RSP Candidate',p1:'RSP',v1:6100,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:53,prov:'Koshi',dist:'Ilam',name:'Ilam-1',c1:'RSP Candidate',p1:'RSP',v1:5400,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:54,prov:'Koshi',dist:'Ilam',name:'Ilam-2',c1:'NC Candidate',p1:'NC',v1:5100,c2:'RSP Candidate',p2:'RSP',v2:4400,won:false},
-  {id:55,prov:'Koshi',dist:'Dhankuta',name:'Dhankuta-1',c1:'RSP Candidate',p1:'RSP',v1:5600,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:56,prov:'Koshi',dist:'Terhathum',name:'Terhathum-1',c1:'UML Candidate',p1:'UML',v1:4200,c2:'NC Candidate',p2:'NC',v2:3900,won:false},
-  {id:57,prov:'Koshi',dist:'Panchthar',name:'Panchthar-1',c1:'RSP Candidate',p1:'RSP',v1:4700,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:58,prov:'Koshi',dist:'Taplejung',name:'Taplejung-1',c1:'RSP Candidate',p1:'RSP',v1:3900,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:59,prov:'Koshi',dist:'Taplejung',name:'Taplejung-2',c1:'NC Candidate',p1:'NC',v1:3700,c2:'RSP Candidate',p2:'RSP',v2:3200,won:false},
-  {id:60,prov:'Koshi',dist:'Sankhuwasabha',name:'Sankhuwasabha-1',c1:'NC Candidate',p1:'NC',v1:4800,c2:'UML Candidate',p2:'UML',v2:3600,won:false},
-  {id:61,prov:'Koshi',dist:'Sankhuwasabha',name:'Sankhuwasabha-2',c1:'RSP Candidate',p1:'RSP',v1:4100,c2:'NC Candidate',p2:'NC',v2:2200,won:false},
-  {id:62,prov:'Koshi',dist:'Bhojpur',name:'Bhojpur-1',c1:'RSP Candidate',p1:'RSP',v1:4300,c2:'NC Candidate',p2:'NC',v2:2200,won:false},
-  {id:63,prov:'Koshi',dist:'Solukhumbu',name:'Solukhumbu-1',c1:'NC Candidate',p1:'NC',v1:3900,c2:'RSP Candidate',p2:'RSP',v2:3400,won:false},
-  {id:64,prov:'Koshi',dist:'Okhaldhunga',name:'Okhaldhunga-1',c1:'UML Candidate',p1:'UML',v1:3800,c2:'RSP Candidate',p2:'RSP',v2:3400,won:false},
-  {id:65,prov:'Koshi',dist:'Khotang',name:'Khotang-1',c1:'RSP Candidate',p1:'RSP',v1:4200,c2:'NC Candidate',p2:'NC',v2:2100,won:false},
-  {id:66,prov:'Koshi',dist:'Udayapur',name:'Udayapur-1',c1:'RSP Candidate',p1:'RSP',v1:5600,c2:'NC Candidate',p2:'NC',v2:2700,won:false},
-  {id:67,prov:'Koshi',dist:'Udayapur',name:'Udayapur-2',c1:'NC Candidate',p1:'NC',v1:4800,c2:'RSP Candidate',p2:'RSP',v2:4200,won:false},
-  {id:68,prov:'Madhesh',dist:'Saptari',name:'Saptari-1',c1:'RSP Candidate',p1:'RSP',v1:5100,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:69,prov:'Madhesh',dist:'Saptari',name:'Saptari-2',c1:'NC Candidate',p1:'NC',v1:5600,c2:'RSP Candidate',p2:'RSP',v2:4900,won:false},
-  {id:70,prov:'Madhesh',dist:'Saptari',name:'Saptari-3',c1:'RSP Candidate',p1:'RSP',v1:4700,c2:'NC Candidate',p2:'NC',v2:2300,won:false},
-  {id:71,prov:'Madhesh',dist:'Siraha',name:'Siraha-1',c1:'RSP Candidate',p1:'RSP',v1:5200,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:72,prov:'Madhesh',dist:'Siraha',name:'Siraha-2',c1:'NC Candidate',p1:'NC',v1:5800,c2:'RSP Candidate',p2:'RSP',v2:5100,won:false},
-  {id:73,prov:'Madhesh',dist:'Siraha',name:'Siraha-3',c1:'RSP Candidate',p1:'RSP',v1:4900,c2:'NC Candidate',p2:'NC',v2:2500,won:false},
-  {id:74,prov:'Madhesh',dist:'Dhanusha',name:'Dhanusha-1',c1:'RSP Candidate',p1:'RSP',v1:5800,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:75,prov:'Madhesh',dist:'Dhanusha',name:'Dhanusha-2',c1:'NC Candidate',p1:'NC',v1:5400,c2:'RSP Candidate',p2:'RSP',v2:4800,won:false},
-  {id:76,prov:'Madhesh',dist:'Dhanusha',name:'Dhanusha-3',c1:'RSP Candidate',p1:'RSP',v1:5100,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:77,prov:'Madhesh',dist:'Mahottari',name:'Mahottari-1',c1:'NC Candidate',p1:'NC',v1:4900,c2:'RSP Candidate',p2:'RSP',v2:4300,won:false},
-  {id:78,prov:'Madhesh',dist:'Mahottari',name:'Mahottari-2',c1:'RSP Candidate',p1:'RSP',v1:5200,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:79,prov:'Madhesh',dist:'Sarlahi',name:'Sarlahi-1',c1:'RSP Candidate',p1:'RSP',v1:5600,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:80,prov:'Madhesh',dist:'Sarlahi',name:'Sarlahi-2',c1:'RSP Candidate',p1:'RSP',v1:5100,c2:'NC Candidate',p2:'NC',v2:2300,won:false},
-  {id:81,prov:'Madhesh',dist:'Sarlahi',name:'Sarlahi-3',c1:'NC Candidate',p1:'NC',v1:4800,c2:'RSP Candidate',p2:'RSP',v2:4300,won:false},
-  {id:82,prov:'Madhesh',dist:'Sarlahi',name:'Sarlahi-4',c1:'Amresh Kr. Singh',p1:'RSP',v1:1908,c2:'Gagan Thapa',p2:'NC',v2:536,won:false},
-  {id:83,prov:'Madhesh',dist:'Rautahat',name:'Rautahat-1',c1:'RSP Candidate',p1:'RSP',v1:5400,c2:'NC Candidate',p2:'NC',v2:2700,won:false},
-  {id:84,prov:'Madhesh',dist:'Rautahat',name:'Rautahat-2',c1:'RSP Candidate',p1:'RSP',v1:4900,c2:'NC Candidate',p2:'NC',v2:2300,won:false},
-  {id:85,prov:'Madhesh',dist:'Rautahat',name:'Rautahat-3',c1:'NC Candidate',p1:'NC',v1:4700,c2:'RSP Candidate',p2:'RSP',v2:4200,won:false},
-  {id:86,prov:'Madhesh',dist:'Bara',name:'Bara-1',c1:'RSP Candidate',p1:'RSP',v1:5700,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:87,prov:'Madhesh',dist:'Bara',name:'Bara-2',c1:'NC Candidate',p1:'NC',v1:5200,c2:'RSP Candidate',p2:'RSP',v2:4700,won:false},
-  {id:88,prov:'Madhesh',dist:'Bara',name:'Bara-3',c1:'RSP Candidate',p1:'RSP',v1:5100,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:89,prov:'Madhesh',dist:'Parsa',name:'Parsa-1',c1:'RSP Candidate',p1:'RSP',v1:5300,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:90,prov:'Madhesh',dist:'Parsa',name:'Parsa-2',c1:'RSP Candidate',p1:'RSP',v1:4900,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:91,prov:'Madhesh',dist:'Parsa',name:'Parsa-3',c1:'NC Candidate',p1:'NC',v1:4600,c2:'RSP Candidate',p2:'RSP',v2:4100,won:false},
-  {id:92,prov:'Gandaki',dist:'Gorkha',name:'Gorkha-1',c1:'Maoist Candidate',p1:'Maoist',v1:4200,c2:'NC Candidate',p2:'NC',v2:3800,won:false},
-  {id:93,prov:'Gandaki',dist:'Gorkha',name:'Gorkha-2',c1:'NC Candidate',p1:'NC',v1:4600,c2:'RSP Candidate',p2:'RSP',v2:3900,won:false},
-  {id:94,prov:'Gandaki',dist:'Lamjung',name:'Lamjung-1',c1:'RSP Candidate',p1:'RSP',v1:4800,c2:'NC Candidate',p2:'NC',v2:2300,won:false},
-  {id:95,prov:'Gandaki',dist:'Tanahu',name:'Tanahu-1',c1:'RSP Candidate',p1:'RSP',v1:5100,c2:'NC Candidate',p2:'NC',v2:2500,won:false},
-  {id:96,prov:'Gandaki',dist:'Tanahu',name:'Tanahu-2',c1:'NC Candidate',p1:'NC',v1:4700,c2:'RSP Candidate',p2:'RSP',v2:4100,won:false},
-  {id:97,prov:'Gandaki',dist:'Kaski',name:'Kaski-1',c1:'RSP Candidate',p1:'RSP',v1:9200,c2:'NC Candidate',p2:'NC',v2:4100,won:false},
-  {id:98,prov:'Gandaki',dist:'Kaski',name:'Kaski-2',c1:'RSP Candidate',p1:'RSP',v1:8800,c2:'NC Candidate',p2:'NC',v2:3900,won:false},
-  {id:99,prov:'Gandaki',dist:'Kaski',name:'Kaski-3',c1:'RSP Candidate',p1:'RSP',v1:8100,c2:'NC Candidate',p2:'NC',v2:3600,won:false},
-  {id:100,prov:'Gandaki',dist:'Kaski',name:'Kaski-4',c1:'RSP Candidate',p1:'RSP',v1:7800,c2:'NC Candidate',p2:'NC',v2:3500,won:false},
-  {id:101,prov:'Gandaki',dist:'Manang',name:'Manang-1',c1:'NC Candidate',p1:'NC',v1:1200,c2:'RPM Candidate',p2:'RPM',v2:900,won:false},
-  {id:102,prov:'Gandaki',dist:'Mustang',name:'Mustang-1',c1:'RPM Candidate',p1:'RPM',v1:1800,c2:'NC Candidate',p2:'NC',v2:1400,won:false},
-  {id:103,prov:'Gandaki',dist:'Myagdi',name:'Myagdi-1',c1:'RSP Candidate',p1:'RSP',v1:3900,c2:'NC Candidate',p2:'NC',v2:2100,won:false},
-  {id:104,prov:'Gandaki',dist:'Parbat',name:'Parbat-1',c1:'RSP Candidate',p1:'RSP',v1:4100,c2:'NC Candidate',p2:'NC',v2:2200,won:false},
-  {id:105,prov:'Gandaki',dist:'Baglung',name:'Baglung-1',c1:'NC Candidate',p1:'NC',v1:4400,c2:'RSP Candidate',p2:'RSP',v2:3800,won:false},
-  {id:106,prov:'Gandaki',dist:'Baglung',name:'Baglung-2',c1:'RSP Candidate',p1:'RSP',v1:4600,c2:'NC Candidate',p2:'NC',v2:2500,won:false},
-  {id:107,prov:'Gandaki',dist:'Syangja',name:'Syangja-1',c1:'RSP Candidate',p1:'RSP',v1:5200,c2:'NC Candidate',p2:'NC',v2:2700,won:false},
-  {id:108,prov:'Gandaki',dist:'Syangja',name:'Syangja-2',c1:'NC Candidate',p1:'NC',v1:4900,c2:'RSP Candidate',p2:'RSP',v2:4200,won:false},
-  {id:109,prov:'Gandaki',dist:'Nawalpur',name:'Nawalpur-1',c1:'RSP Candidate',p1:'RSP',v1:5600,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:110,prov:'Gandaki',dist:'Nawalpur',name:'Nawalpur-2',c1:'RSP Candidate',p1:'RSP',v1:5200,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:111,prov:'Gandaki',dist:'Nawalparasi',name:'Nawalparasi-W-1',c1:'NC Candidate',p1:'NC',v1:4800,c2:'RSP Candidate',p2:'RSP',v2:4300,won:false},
-  {id:112,prov:'Lumbini',dist:'Rupandehi',name:'Rupandehi-1',c1:'RSP Candidate',p1:'RSP',v1:7400,c2:'NC Candidate',p2:'NC',v2:3300,won:false},
-  {id:113,prov:'Lumbini',dist:'Rupandehi',name:'Rupandehi-2',c1:'RSP Candidate',p1:'RSP',v1:6900,c2:'NC Candidate',p2:'NC',v2:3100,won:false},
-  {id:114,prov:'Lumbini',dist:'Rupandehi',name:'Rupandehi-3',c1:'NC Candidate',p1:'NC',v1:6200,c2:'RSP Candidate',p2:'RSP',v2:5700,won:false},
-  {id:115,prov:'Lumbini',dist:'Rupandehi',name:'Rupandehi-4',c1:'RSP Candidate',p1:'RSP',v1:6600,c2:'NC Candidate',p2:'NC',v2:3000,won:false},
-  {id:116,prov:'Lumbini',dist:'Kapilvastu',name:'Kapilvastu-1',c1:'NC Candidate',p1:'NC',v1:5400,c2:'RSP Candidate',p2:'RSP',v2:4800,won:false},
-  {id:117,prov:'Lumbini',dist:'Kapilvastu',name:'Kapilvastu-2',c1:'RSP Candidate',p1:'RSP',v1:5800,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:118,prov:'Lumbini',dist:'Nawalparasi',name:'Nawalparasi-E-1',c1:'RSP Candidate',p1:'RSP',v1:5200,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:119,prov:'Lumbini',dist:'Nawalparasi',name:'Nawalparasi-E-2',c1:'NC Candidate',p1:'NC',v1:4900,c2:'RSP Candidate',p2:'RSP',v2:4400,won:false},
-  {id:120,prov:'Lumbini',dist:'Dang',name:'Dang-1',c1:'RSP Candidate',p1:'RSP',v1:6200,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:121,prov:'Lumbini',dist:'Dang',name:'Dang-2',c1:'RSP Candidate',p1:'RSP',v1:5800,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:122,prov:'Lumbini',dist:'Dang',name:'Dang-3',c1:'NC Candidate',p1:'NC',v1:5400,c2:'RSP Candidate',p2:'RSP',v2:4900,won:false},
-  {id:123,prov:'Lumbini',dist:'Dang',name:'Dang-4',c1:'RSP Candidate',p1:'RSP',v1:5400,c2:'NC Candidate',p2:'NC',v2:2700,won:false},
-  {id:124,prov:'Lumbini',dist:'Banke',name:'Banke-1',c1:'RSP Candidate',p1:'RSP',v1:6700,c2:'NC Candidate',p2:'NC',v2:3100,won:false},
-  {id:125,prov:'Lumbini',dist:'Banke',name:'Banke-2',c1:'RSP Candidate',p1:'RSP',v1:6200,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:126,prov:'Lumbini',dist:'Banke',name:'Banke-3',c1:'RSP Candidate',p1:'RSP',v1:5800,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:127,prov:'Lumbini',dist:'Bardiya',name:'Bardiya-1',c1:'RSP Candidate',p1:'RSP',v1:5400,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:128,prov:'Lumbini',dist:'Bardiya',name:'Bardiya-2',c1:'NC Candidate',p1:'NC',v1:5100,c2:'RSP Candidate',p2:'RSP',v2:4600,won:false},
-  {id:129,prov:'Lumbini',dist:'Gulmi',name:'Gulmi-1',c1:'RSP Candidate',p1:'RSP',v1:4800,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:130,prov:'Lumbini',dist:'Gulmi',name:'Gulmi-2',c1:'NC Candidate',p1:'NC',v1:4600,c2:'RSP Candidate',p2:'RSP',v2:4100,won:false},
-  {id:131,prov:'Lumbini',dist:'Arghakhanchi',name:'Arghakhanchi-1',c1:'RSP Candidate',p1:'RSP',v1:4300,c2:'NC Candidate',p2:'NC',v2:2200,won:false},
-  {id:132,prov:'Lumbini',dist:'Palpa',name:'Palpa-1',c1:'RSP Candidate',p1:'RSP',v1:4900,c2:'NC Candidate',p2:'NC',v2:2500,won:false},
-  {id:133,prov:'Lumbini',dist:'Palpa',name:'Palpa-2',c1:'NC Candidate',p1:'NC',v1:4700,c2:'RSP Candidate',p2:'RSP',v2:4200,won:false},
-  {id:134,prov:'Lumbini',dist:'Pyuthan',name:'Pyuthan-1',c1:'RSP Candidate',p1:'RSP',v1:4100,c2:'Maoist Candidate',p2:'Maoist',v2:2800,won:false},
-  {id:135,prov:'Lumbini',dist:'Rolpa',name:'Rolpa-1',c1:'Maoist Candidate',p1:'Maoist',v1:4600,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:136,prov:'Lumbini',dist:'Eastern Rukum',name:'Rukum East-1',c1:'Prachanda',p1:'Maoist',v1:1415,c2:'Lilamani Gautam',p2:'UML',v2:431,won:false},
-  {id:137,prov:'Lumbini',dist:'Western Rukum',name:'Rukum West-1',c1:'RSP Candidate',p1:'RSP',v1:3800,c2:'Maoist Candidate',p2:'Maoist',v2:2100,won:false},
-  {id:138,prov:'Lumbini',dist:'Western Rukum',name:'Rukum West-2',c1:'Maoist Candidate',p1:'Maoist',v1:3400,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:139,prov:'Karnali',dist:'Dolpa',name:'Dolpa-1',c1:'NC Candidate',p1:'NC',v1:2400,c2:'RSP Candidate',p2:'RSP',v2:1800,won:false},
-  {id:140,prov:'Karnali',dist:'Mugu',name:'Mugu-1',c1:'NC Candidate',p1:'NC',v1:2100,c2:'UML Candidate',p2:'UML',v2:1700,won:false},
-  {id:141,prov:'Karnali',dist:'Humla',name:'Humla-1',c1:'RPM Candidate',p1:'RPM',v1:1900,c2:'NC Candidate',p2:'NC',v2:1600,won:false},
-  {id:142,prov:'Karnali',dist:'Jumla',name:'Jumla-1',c1:'RSP Candidate',p1:'RSP',v1:3400,c2:'NC Candidate',p2:'NC',v2:1800,won:false},
-  {id:143,prov:'Karnali',dist:'Kalikot',name:'Kalikot-1',c1:'NC Candidate',p1:'NC',v1:3200,c2:'UML Candidate',p2:'UML',v2:2600,won:false},
-  {id:144,prov:'Karnali',dist:'Dailekh',name:'Dailekh-1',c1:'RSP Candidate',p1:'RSP',v1:4100,c2:'NC Candidate',p2:'NC',v2:2200,won:false},
-  {id:145,prov:'Karnali',dist:'Jajarkot',name:'Jajarkot-1',c1:'Maoist Candidate',p1:'Maoist',v1:3600,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:146,prov:'Karnali',dist:'Western Rukum',name:'W.Rukum-Karnali',c1:'Maoist Candidate',p1:'Maoist',v1:3800,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:147,prov:'Karnali',dist:'Surkhet',name:'Surkhet-1',c1:'RSP Candidate',p1:'RSP',v1:5200,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:148,prov:'Karnali',dist:'Surkhet',name:'Surkhet-2',c1:'NC Candidate',p1:'NC',v1:4800,c2:'RSP Candidate',p2:'RSP',v2:4300,won:false},
-  {id:149,prov:'Karnali',dist:'Salyan',name:'Salyan-1',c1:'RSP Candidate',p1:'RSP',v1:4400,c2:'Maoist Candidate',p2:'Maoist',v2:2700,won:false},
-  {id:150,prov:'Sudurpashchim',dist:'Kanchanpur',name:'Kanchanpur-1',c1:'RSP Candidate',p1:'RSP',v1:6800,c2:'NC Candidate',p2:'NC',v2:3200,won:false},
-  {id:151,prov:'Sudurpashchim',dist:'Kanchanpur',name:'Kanchanpur-2',c1:'RSP Candidate',p1:'RSP',v1:6400,c2:'NC Candidate',p2:'NC',v2:2900,won:false},
-  {id:152,prov:'Sudurpashchim',dist:'Kanchanpur',name:'Kanchanpur-3',c1:'NC Candidate',p1:'NC',v1:5900,c2:'RSP Candidate',p2:'RSP',v2:5300,won:false},
-  {id:153,prov:'Sudurpashchim',dist:'Kanchanpur',name:'Kanchanpur-4',c1:'RSP Candidate',p1:'RSP',v1:5800,c2:'NC Candidate',p2:'NC',v2:2600,won:false},
-  {id:154,prov:'Sudurpashchim',dist:'Kailali',name:'Kailali-1',c1:'RSP Candidate',p1:'RSP',v1:7100,c2:'NC Candidate',p2:'NC',v2:3300,won:false},
-  {id:155,prov:'Sudurpashchim',dist:'Kailali',name:'Kailali-2',c1:'RSP Candidate',p1:'RSP',v1:6700,c2:'NC Candidate',p2:'NC',v2:3000,won:false},
-  {id:156,prov:'Sudurpashchim',dist:'Kailali',name:'Kailali-3',c1:'NC Candidate',p1:'NC',v1:6200,c2:'RSP Candidate',p2:'RSP',v2:5600,won:false},
-  {id:157,prov:'Sudurpashchim',dist:'Kailali',name:'Kailali-4',c1:'RSP Candidate',p1:'RSP',v1:6100,c2:'NC Candidate',p2:'NC',v2:2800,won:false},
-  {id:158,prov:'Sudurpashchim',dist:'Dadeldhura',name:'Dadeldhura-1',c1:'RSP Candidate',p1:'RSP',v1:4200,c2:'NC Candidate',p2:'NC',v2:2100,won:false},
-  {id:159,prov:'Sudurpashchim',dist:'Baitadi',name:'Baitadi-1',c1:'RSP Candidate',p1:'RSP',v1:4600,c2:'NC Candidate',p2:'NC',v2:2400,won:false},
-  {id:160,prov:'Sudurpashchim',dist:'Darchula',name:'Darchula-1',c1:'NC Candidate',p1:'NC',v1:3800,c2:'RSP Candidate',p2:'RSP',v2:3200,won:false},
-  {id:161,prov:'Sudurpashchim',dist:'Bajhang',name:'Bajhang-1',c1:'RSP Candidate',p1:'RSP',v1:3600,c2:'NC Candidate',p2:'NC',v2:1800,won:false},
-  {id:162,prov:'Sudurpashchim',dist:'Bajura',name:'Bajura-1',c1:'NC Candidate',p1:'NC',v1:3200,c2:'RSP Candidate',p2:'RSP',v2:2800,won:false},
-  {id:163,prov:'Sudurpashchim',dist:'Achham',name:'Achham-1',c1:'RSP Candidate',p1:'RSP',v1:4100,c2:'NC Candidate',p2:'NC',v2:2200,won:false},
-  {id:164,prov:'Sudurpashchim',dist:'Achham',name:'Achham-2',c1:'NC Candidate',p1:'NC',v1:3900,c2:'RSP Candidate',p2:'RSP',v2:3400,won:false},
-  {id:165,prov:'Sudurpashchim',dist:'Dothi',name:'Dothi-1',c1:'RSP Candidate',p1:'RSP',v1:3800,c2:'NC Candidate',p2:'NC',v2:2000,won:false},
-];
-
-let allData = [...DATA];
-let activeParty = '';
-let refreshSecs = 30;
-
-// Clock
-setInterval(() => {
-  const npt = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kathmandu'}));
-  document.getElementById('clk').textContent =
-    npt.getHours().toString().padStart(2,'0')+':'+npt.getMinutes().toString().padStart(2,'0');
-},1000);
-
-// Countdown
-setInterval(() => {
-  refreshSecs--;
-  if(refreshSecs<=0){refreshSecs=30;loadAndRender();}
-  document.getElementById('rcd').textContent = refreshSecs;
-  document.getElementById('rn').textContent = refreshSecs;
-},1000);
-
-function normalizeParty(p) {
-  if(!p) return 'Others';
-  const pl = p.toLowerCase();
-  if(pl.includes('rsp')||pl.includes('swatantra')) return 'RSP';
-  if(pl.includes('congress')||pl==='nc') return 'NC';
-  if(pl.includes('uml')||pl.includes('unified marxist')) return 'UML';
-  if(pl.includes('maoist')||pl.includes('ncp')) return 'Maoist';
-  if(pl.includes('rpm')||pl.includes('rpp')||pl.includes('monarchy')||pl.includes('prajatantra')) return 'RPM';
-  return 'Others';
+// ─── Clock ───
+function updateClock() {
+  const npt = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' }));
+  const h = npt.getHours().toString().padStart(2,'0');
+  const m = npt.getMinutes().toString().padStart(2,'0');
+  const s = npt.getSeconds().toString().padStart(2,'0');
+  document.getElementById('clock').textContent =
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][npt.getDay()] + ' ' + h+':'+m+':'+s + ' NPT';
+  document.getElementById('clock-display').textContent = h+':'+m;
 }
+setInterval(updateClock, 1000);
+updateClock();
 
-async function loadAndRender() {
+// ─── Countdown ───
+let secs = 30;
+setInterval(() => {
+  secs--;
+  if (secs <= 0) { secs = 30; loadData(); }
+  document.getElementById('refresh-countdown').textContent = secs;
+}, 1000);
+
+// ─── Party config ───
+const PARTY_COLORS = { rsp:'#e74c3c', nc:'#27ae60', uml:'#e67e22', ncp:'#8e44ad' };
+const PARTY_LABELS = {
+  rsp: { emoji:'🔔', name:'RSP', full:'Rastriya Swatantra Party' },
+  nc:  { emoji:'🌳', name:'NC',  full:'Nepali Congress' },
+  uml: { emoji:'☀️', name:'CPN-UML', full:"KP Oli's Party" },
+  ncp: { emoji:'💥', name:'NCP Maoist', full:"Prachanda's Party" },
+};
+
+let allConstituencies = [];
+
+// ─── Load data.json ───
+async function loadData() {
   try {
-    const res = await fetch('data.json?v='+Date.now());
-    if(res.ok){
-      const d = await res.json();
-      if(d.constituencies && d.constituencies.length > 10){
-        allData = d.constituencies;
-        document.getElementById('status-txt').innerHTML='✅ <strong>Live data</strong> from GitHub Actions · Source: '+(d.source||'news');
-      } else {
-        document.getElementById('status-txt').innerHTML='📊 <strong>Partial results</strong> shown · GitHub Actions will update data.json every 5 min';
-      }
-    }
+    const url = 'data.json?v=' + Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+    renderDashboard(d);
+    document.getElementById('status-text').innerHTML =
+      '✅ <strong>Live data loaded</strong> — updated by GitHub Actions every 5 min';
+    document.getElementById('status-source').textContent = 'Source: ' + (d.source || 'nepalvotes.live');
+    document.getElementById('data-time').textContent = d.lastUpdated || '—';
+    document.getElementById('data-time').style.color = '#f39c12';
   } catch(e) {
-    document.getElementById('status-txt').innerHTML='📊 <strong>Partial known results</strong> · Upload data.json to GitHub to enable auto-updates';
+    document.getElementById('status-text').innerHTML =
+      '⚠️ Could not load data.json — <strong>check GitHub Actions is running</strong>';
+    console.error(e);
   }
-  applyFilters();
 }
 
-function setPartyFilter(party) {
-  activeParty = party;
-  ['all','rsp','nc','uml','ncp','rpm'].forEach(k => {
-    const b = document.getElementById('fb-'+k); if(b) b.classList.remove('active');
-  });
-  const id = party==='' ? 'fb-all' : 'fb-'+party.toLowerCase().replace(/[^a-z]/g,'');
-  const el = document.getElementById(id); if(el) el.classList.add('active');
-  applyFilters();
-}
+// ─── Render dashboard ───
+function renderDashboard(d) {
+  document.getElementById('summary-text').textContent = d.summary || '—';
 
-function applyFilters() {
-  const search = (document.getElementById('search')?.value||'').toLowerCase();
-  const prov = (document.getElementById('prov-filter')?.value||'').toLowerCase();
-  const status = document.getElementById('status-filter')?.value||'';
-
-  const filtered = allData.filter(c => {
-    const ms = !search||[c.name,c.c1,c.c2,c.dist,c.p1,c.p2].some(v=>(v||'').toLowerCase().includes(search));
-    const mp = !prov||(c.prov||'').toLowerCase().includes(prov);
-    const mst = !status||(status==='won'&&c.won)||(status==='counting'&&!c.won);
-    const mpa = !activeParty||normalizeParty(c.p1)===activeParty;
-    return ms&&mp&&mst&&mpa;
+  const ticker = d.ticker || '';
+  ['t1','t1b'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '🔴 ' + ticker;
   });
 
-  updateCounters(allData);
-  renderTable(filtered);
-  document.getElementById('rc').innerHTML=`Showing <strong>${filtered.length}</strong> of <strong>${allData.length}</strong> constituencies`;
-}
+  const p = d.parties;
+  if (p) {
+    const order = ['rsp','nc','uml','ncp'];
+    order.forEach(key => {
+      if (!p[key]) return;
+      const won = p[key].won || 0;
+      const leading = p[key].leading || 0;
+      const total = p[key].total || (won + leading);
+      const barPct = Math.min((total/165)*100, 100).toFixed(1);
+      setEl(key+'-won', won);
+      setEl(key+'-leading', leading);
+      setEl(key+'-total', total);
+      const bar = document.getElementById(key+'-bar');
+      if (bar) { bar.style.width = barPct + '%'; bar.classList.add('flash'); }
+    });
 
-function updateCounters(data) {
-  const counts={RSP:0,NC:0,UML:0,Maoist:0,RPM:0,Others:0};
-  const won={RSP:0,NC:0,UML:0,Maoist:0,RPM:0,Others:0};
-  let declared=0;
-  data.forEach(c=>{
-    const k=normalizeParty(c.p1);
-    counts[k]=(counts[k]||0)+1;
-    if(c.won){won[k]=(won[k]||0)+1;declared++;}
-  });
-  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  set('s-rsp',counts.RSP);set('s-nc',counts.NC);set('s-uml',counts.UML);
-  set('s-ncp',counts.Maoist);set('s-rpm',counts.RPM);
-  set('s-others',counts.Others);set('s-declared',declared);
-  ['rsp','nc','uml','ncp','rpm'].forEach(k=>{
-    const pk=k==='ncp'?'Maoist':k.toUpperCase();
-    const tot=counts[pk]||0,w=won[pk]||0,l=tot-w;
-    set('p-'+k+'-w',w);set('p-'+k+'-l',l);set('p-'+k+'-t',tot);
-    const bar=document.getElementById('pb-'+k);
-    if(bar)bar.style.width=Math.min((tot/165)*100,100).toFixed(1)+'%';
-  });
-  // Update ticker
-  const tk=`RSP leading/won ${counts.RSP} seats | NC: ${counts.NC} | UML: ${counts.UML} | Maoist: ${counts.Maoist} | RPM: ${counts.RPM} | Declared: ${declared}`;
-  ['tk1','tk1b'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='🔴 '+tk;});
-}
+    const rspT = p.rsp?.total||0, ncT=p.nc?.total||0, umlT=p.uml?.total||0, ncpT=p.ncp?.total||0;
+    const rspPct=Math.min((rspT/165)*100,55), ncPct=Math.min((ncT/165)*100,15);
+    const umlPct=Math.min((umlT/165)*100,10), ncpPct=Math.min((ncpT/165)*100,10);
+    document.getElementById('mega-bar').innerHTML = `
+      <div class="mega-seg" style="width:${rspPct}%;background:rgba(231,76,60,.75);color:#fff">RSP ${rspT}</div>
+      <div class="mega-seg" style="width:${ncPct}%;background:rgba(39,174,96,.75);color:#fff">NC ${ncT}</div>
+      <div class="mega-seg" style="width:${umlPct}%;background:rgba(230,126,34,.75);color:#fff">UML ${umlT}</div>
+      <div class="mega-seg" style="width:${ncpPct}%;background:rgba(142,68,173,.75);color:#fff">NCP ${ncpT}</div>
+      <div class="mega-seg" style="flex:1;background:rgba(100,100,100,.15)"></div>
+      <div class="majority-line"></div>`;
 
-function ini(n){return (n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();}
-
-function renderTable(data){
-  if(!data.length){
-    document.getElementById('tbl').innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)">No constituencies match your filter.</div>';
-    return;
+    document.getElementById('party-tbody').innerHTML = order.map((key,i) => {
+      if (!p[key]) return '';
+      const won=p[key].won||0, leading=p[key].leading||0, total=p[key].total||won+leading;
+      const pct=((total/165)*100).toFixed(1), barW=Math.min((total/165)*100,100).toFixed(1);
+      const col=PARTY_COLORS[key], lbl=PARTY_LABELS[key];
+      return `<tr>
+        <td style="font-family:Teko;font-size:1.1rem;color:var(--muted)">${i+1}</td>
+        <td><div style="display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:20px;background:${col}18;border:1px solid ${col}44;font-weight:600;font-size:.8rem">
+          <div style="width:8px;height:8px;border-radius:50%;background:${col}"></div>
+          <span style="color:${col}">${lbl.emoji} ${lbl.name}</span>
+        </div></td>
+        <td><span style="font-family:Teko;font-size:1.4rem;font-weight:700;color:${col}">${won}</span></td>
+        <td><span style="font-family:Teko;font-size:1.2rem;color:var(--muted)">${leading}</span></td>
+        <td><span style="font-family:Teko;font-size:1.3rem;font-weight:700;color:var(--gold)">${total}</span>
+          <div style="width:80px;height:5px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:8px">
+            <div style="height:100%;border-radius:2px;background:${col};width:${barW}%"></div></div></td>
+        <td style="color:var(--gold);font-weight:600">${pct}%</td>
+      </tr>`;
+    }).join('');
   }
-  const rows=data.map(c=>{
-    const col1=PCOLOR[normalizeParty(c.p1)]||'#6a8fad';
-    const col2=PCOLOR[normalizeParty(c.p2)]||'#6a8fad';
-    const tot=(c.v1||0)+(c.v2||0);
-    const p1=tot?Math.round((c.v1/tot)*100):50;
-    const margin=(c.v1||0)-(c.v2||0);
-    const pc=PROV_COLOR[c.prov]||'#6a8fad';
-    const em1=PEMOJI[normalizeParty(c.p1)]||'🔷';
-    const em2=PEMOJI[normalizeParty(c.p2)]||'🔷';
-    return `<tr class="${c.won?'won-row':''}">
-      <td class="const-num">${c.id}</td>
+
+  // Constituencies table
+  if (d.constituencies && d.constituencies.length > 0) {
+    allConstituencies = d.constituencies;
+    renderConst(allConstituencies);
+  }
+}
+
+function renderConst(list) {
+  document.getElementById('const-count').textContent = list.length + ' constituencies';
+  document.getElementById('const-tbody').innerHTML = list.map(c => {
+    const col1 = getPartyColor(c.p1);
+    const isWon = c.won;
+    const lead = (c.v1||0) - (c.v2||0);
+    return `<tr>
+      <td style="font-weight:600;color:var(--gold)">${c.name||'—'}</td>
+      <td style="color:var(--muted);font-size:.75rem">${c.dist||''}</td>
       <td>
-        <div class="const-name">${c.name}</div>
-        <div class="const-dist"><span class="prov-badge" style="background:${pc}22;color:${pc}">${c.prov}</span>${c.dist}</div>
+        <div style="font-weight:600;font-size:.85rem;color:${col1}">${c.c1||'—'}</div>
+        <div style="font-size:.68rem;color:var(--muted)">${partyEmoji(c.p1)} ${c.p1||''}</div>
       </td>
-      <td><div class="cand-cell">
-        <div class="cand-init" style="background:${col1}18;border-color:${col1};color:${col1}">${ini(c.c1)}</div>
-        <div><div class="cname">${c.c1||'—'}</div><div class="cparty">${em1} ${c.p1||'—'}</div></div>
-      </div></td>
+      <td style="font-family:Teko;font-size:1.1rem;color:${col1}">${(c.v1||0).toLocaleString()}</td>
       <td>
-        <div class="vnum" style="color:${col1}">${(c.v1||0).toLocaleString()}</div>
-        <div class="vs-mini"><div class="vs-f" style="width:${p1}%;background:${col1}"></div><div class="vs-f" style="flex:1;background:${col2}"></div></div>
+        <div style="font-size:.82rem">${c.c2||'—'}</div>
+        <div style="font-size:.68rem;color:var(--muted)">${c.p2||''}</div>
       </td>
-      <td><div class="cand-cell">
-        <div class="cand-init" style="background:${col2}18;border-color:${col2};color:${col2}">${ini(c.c2)}</div>
-        <div><div class="cname">${c.c2||'—'}</div><div class="cparty">${em2} ${c.p2||'—'}</div></div>
-      </div></td>
-      <td><div class="vnum" style="color:${col2}">${(c.v2||0).toLocaleString()}</div></td>
-      <td><div class="margin-cell" style="color:${col1}">+${margin.toLocaleString()}</div></td>
-      <td><span class="spill ${c.won?'s-won':'s-cnt'}">${c.won?'✅ Declared':'🔴 Counting'}</span></td>
+      <td style="font-family:Teko;font-size:1rem;color:var(--muted)">${(c.v2||0).toLocaleString()}</td>
+      <td>${isWon ? '<span class="won-badge">✅ Won</span>' : '<span class="counting-badge">🔴 Counting</span>'}</td>
     </tr>`;
   }).join('');
-
-  document.getElementById('tbl').innerHTML=`<table>
-    <thead><tr>
-      <th>#</th><th>Constituency</th>
-      <th>Leading Candidate</th><th>Votes</th>
-      <th>Runner-up</th><th>Votes</th>
-      <th>Lead</th><th>Status</th>
-    </tr></thead>
-    <tbody>${rows}</tbody>
-  </table>`;
 }
 
-loadAndRender();
+function filterConst() {
+  const q = document.getElementById('const-filter').value.toLowerCase();
+  const filtered = q ? allConstituencies.filter(c =>
+    (c.name||'').toLowerCase().includes(q) ||
+    (c.dist||'').toLowerCase().includes(q) ||
+    (c.c1||'').toLowerCase().includes(q) ||
+    (c.p1||'').toLowerCase().includes(q) ||
+    (c.c2||'').toLowerCase().includes(q)
+  ) : allConstituencies;
+  renderConst(filtered);
+}
+
+function setEl(id, val) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = val; el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),2000); }
+}
+
+function getPartyColor(party) {
+  if (!party) return '#6a8fad';
+  const p = party.toLowerCase();
+  if (p.includes('rsp') || p.includes('swatantra')) return '#e74c3c';
+  if (p.includes('congress') || p === 'nc') return '#27ae60';
+  if (p.includes('uml') || p.includes('एमाले')) return '#e67e22';
+  if (p.includes('maoist') || p.includes('ncp') || p.includes('माओवादी')) return '#8e44ad';
+  return '#6a8fad';
+}
+
+function partyEmoji(party) {
+  if (!party) return '🔷';
+  const p = party.toLowerCase();
+  if (p.includes('rsp') || p.includes('swatantra')) return '🔔';
+  if (p.includes('congress') || p === 'nc') return '🌳';
+  if (p.includes('uml')) return '☀️';
+  if (p.includes('maoist') || p.includes('ncp')) return '💥';
+  return '🔷';
+}
+
+loadData();
 </script>
 </body>
 </html>
