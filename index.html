@@ -4,1241 +4,497 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🗳️ Nepal Election 2026 — Live Results</title>
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #c0392b;
-    --crimson: #e74c3c;
-    --gold: #f39c12;
-    --amber: #e67e22;
-    --blue: #1a3a6b;
-    --navy: #0d2137;
-    --rsp-color: #e74c3c;
-    --nc-color: #27ae60;
-    --uml-color: #e67e22;
-    --ncp-color: #8e44ad;
-    --bg: #050e1a;
-    --card: #0a1c2e;
-    --card2: #0f2440;
-    --border: #1a3a5c;
-    --text: #e8f4fd;
-    --muted: #6a8fad;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    font-family: 'Noto Sans', sans-serif;
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Animated bg */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse 800px 600px at 20% 10%, rgba(192,57,43,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 600px 400px at 80% 80%, rgba(26,58,107,0.2) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ---- HEADER ---- */
-  header {
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
-    border-bottom: 3px solid var(--crimson);
-    padding: 0;
-    box-shadow: 0 4px 30px rgba(231,76,60,0.3);
-  }
-
-  .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 24px;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .header-brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .nepal-flag {
-    width: 42px;
-    height: 52px;
-    flex-shrink: 0;
-  }
-
-  .header-titles h1 {
-    font-family: 'Teko', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    line-height: 1;
-    text-transform: uppercase;
-    color: #fff;
-  }
-
-  .header-titles h1 span { color: var(--crimson); }
-
-  .header-titles .sub {
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-
-  .live-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(231,76,60,0.15);
-    border: 1px solid var(--crimson);
-    border-radius: 4px;
-    padding: 6px 14px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--crimson);
-  }
-
-  .live-dot {
-    width: 8px; height: 8px;
-    background: var(--crimson);
-    border-radius: 50%;
-    animation: pulse 1s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .header-stats {
-    display: flex;
-    gap: 0;
-    border-top: 1px solid var(--border);
-  }
-
-  .hstat {
-    flex: 1;
-    text-align: center;
-    padding: 8px 12px;
-    border-right: 1px solid var(--border);
-  }
-  .hstat:last-child { border-right: none; }
-  .hstat .n { font-family: 'Teko', sans-serif; font-size: 1.4rem; color: var(--gold); line-height: 1; }
-  .hstat .l { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-
-  /* ---- TICKER ---- */
-  .ticker {
-    background: var(--crimson);
-    padding: 7px 0;
-    overflow: hidden;
-    position: relative;
-    z-index: 10;
-  }
-
-  .ticker-inner {
-    display: flex;
-    gap: 0;
-    animation: ticker 30s linear infinite;
-    white-space: nowrap;
-  }
-
-  .ticker-item {
-    padding: 0 30px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    border-right: 1px solid rgba(255,255,255,0.3);
-  }
-  .ticker-item .dot { margin-right: 8px; }
-
-  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-  /* ---- MAIN ---- */
-  main {
-    position: relative;
-    z-index: 5;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 20px 16px 40px;
-  }
-
-  /* ---- SECTION TITLE ---- */
-  .section-title {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--gold), transparent);
-  }
-
-  /* ---- PARTY SUMMARY CARDS ---- */
-  .party-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .party-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-
-  .party-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-  }
-
-  .party-card.rsp::before { background: var(--rsp-color); }
-  .party-card.nc::before { background: var(--nc-color); }
-  .party-card.uml::before { background: var(--uml-color); }
-  .party-card.ncp::before { background: var(--ncp-color); }
-  .party-card.others::before { background: var(--muted); }
-
-  .party-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.15); }
-
-  .party-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .party-name {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-  }
-
-  .party-symbol {
-    font-size: 1.4rem;
-  }
-
-  .seat-count {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 10px;
-  }
-
-  .seat-box {
-    text-align: center;
-  }
-  .seat-box .num {
-    font-family: 'Teko', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1;
-  }
-  .seat-box .lbl {
-    font-size: 0.6rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .rsp .seat-box .num { color: var(--rsp-color); }
-  .nc .seat-box .num { color: var(--nc-color); }
-  .uml .seat-box .num { color: var(--uml-color); }
-  .ncp .seat-box .num { color: var(--ncp-color); }
-  .others .seat-box .num { color: var(--muted); }
-
-  .seat-bar {
-    height: 6px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
-
-  .seat-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 1s ease;
-  }
-
-  .rsp .seat-bar-fill { background: var(--rsp-color); }
-  .nc .seat-bar-fill { background: var(--nc-color); }
-  .uml .seat-bar-fill { background: var(--uml-color); }
-  .ncp .seat-bar-fill { background: var(--ncp-color); }
-  .others .seat-bar-fill { background: var(--muted); }
-
-  /* ---- MAJORITY LINE ---- */
-  .majority-bar {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin-bottom: 28px;
-    position: relative;
-  }
-
-  .majority-label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .majority-label strong { color: var(--gold); font-size: 0.85rem; }
-
-  .mega-bar {
-    height: 28px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    position: relative;
-  }
-
-  .mega-seg {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: width 1.2s ease;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .majority-line {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%;
-    width: 2px;
-    background: var(--gold);
-    z-index: 5;
-  }
-
-  .majority-line::after {
-    content: '138 MAJORITY';
-    position: absolute;
-    top: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.6rem;
-    color: var(--gold);
-    white-space: nowrap;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-
-  /* ---- HOT SEATS ---- */
-  .hotseat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .hotseat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .hotseat-header {
-    padding: 10px 14px;
-    background: var(--card2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .hotseat-const {
-    font-family: 'Teko', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .hotseat-status {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    text-transform: uppercase;
-  }
-
-  .status-counting { background: rgba(243,156,18,0.2); color: var(--gold); border: 1px solid var(--gold); }
-  .status-won { background: rgba(39,174,96,0.2); color: #2ecc71; border: 1px solid #2ecc71; }
-
-  .hotseat-body { padding: 14px; }
-
-  .candidate-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-    position: relative;
-  }
-
-  .cand-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Teko', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border: 2px solid;
-  }
-
-  .cand-info { flex: 1; min-width: 0; }
-  .cand-name { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .cand-party { font-size: 0.7rem; color: var(--muted); }
-
-  .cand-votes { text-align: right; }
-  .cand-votes .vnum {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1;
-  }
-  .cand-votes .vpct { font-size: 0.65rem; color: var(--muted); }
-
-  .vs-bar {
-    height: 8px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 8px 0;
-    display: flex;
-  }
-
-  .vs-seg {
-    height: 100%;
-    transition: width 1s ease;
-  }
-
-  .lead-tag {
-    display: inline-block;
-    font-size: 0.62rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
-  }
-
-  .lead-tag.leading {
-    background: rgba(231,76,60,0.2);
-    color: var(--crimson);
-    border: 1px solid var(--crimson);
-  }
-
-  /* ---- FULL RESULTS TABLE ---- */
-  .table-wrap {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 28px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.82rem;
-  }
-
-  thead tr {
-    background: var(--card2);
-    border-bottom: 2px solid var(--crimson);
-  }
-
-  th {
-    padding: 12px 14px;
-    text-align: left;
-    font-family: 'Teko', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    transition: background 0.15s;
-  }
-
-  tbody tr:hover { background: rgba(255,255,255,0.03); }
-  tbody tr:last-child { border-bottom: none; }
-
-  td { padding: 11px 14px; vertical-align: middle; }
-
-  .rank-num {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.1rem;
-    color: var(--muted);
-  }
-
-  .party-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.8rem;
-  }
-
-  .party-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-  .won-num {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-  }
-
-  .lead-num {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.2rem;
-    color: var(--muted);
-  }
-
-  .total-num {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--gold);
-  }
-
-  .mini-bar {
-    width: 80px;
-    height: 5px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 2px;
-    overflow: hidden;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 8px;
-  }
-
-  .mini-bar-fill {
-    height: 100%;
-    border-radius: 2px;
-  }
-
-  /* ---- SOURCE NOTE ---- */
-  .source-note {
-    background: rgba(26,58,107,0.3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 18px;
-    font-size: 0.75rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .source-note strong { color: var(--text); }
-
-  /* ---- FOOTER ---- */
-  footer {
-    text-align: center;
-    padding: 20px;
-    color: var(--muted);
-    font-size: 0.72rem;
-    border-top: 1px solid var(--border);
-    position: relative;
-    z-index: 5;
-  }
-
-  /* ---- ANIMATIONS ---- */
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .party-card, .hotseat-card, .table-wrap { animation: fadeIn 0.5s ease both; }
-  .party-card:nth-child(1) { animation-delay: 0.05s; }
-  .party-card:nth-child(2) { animation-delay: 0.1s; }
-  .party-card:nth-child(3) { animation-delay: 0.15s; }
-  .party-card:nth-child(4) { animation-delay: 0.2s; }
-
-  /* ---- TIMESTAMP ---- */
-  .timestamp {
-    font-size: 0.68rem;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 6px;
-  }
-  .timestamp span { color: var(--gold); }
-
-  /* ---- MOBILE ---- */
-  @media (max-width: 600px) {
-    .header-titles h1 { font-size: 1.4rem; }
-    .hstat .n { font-size: 1.1rem; }
-    th, td { padding: 9px 8px; }
-    .mini-bar { display: none; }
+    --crimson:#e74c3c; --gold:#f39c12; --amber:#e67e22;
+    --rsp:#e74c3c; --nc:#27ae60; --uml:#e67e22; --ncp:#8e44ad;
+    --bg:#050e1a; --card:#0a1c2e; --card2:#0f2440; --border:#1a3a5c;
+    --text:#e8f4fd; --muted:#6a8fad;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);font-family:'Noto Sans',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(192,57,43,.12) 0%,transparent 60%),
+               radial-gradient(ellipse 600px 400px at 80% 80%,rgba(26,58,107,.2) 0%,transparent 60%)}
+
+  /* HEADER */
+  header{position:relative;z-index:10;background:linear-gradient(135deg,#0a1c2e,#0d2137);border-bottom:3px solid var(--crimson);box-shadow:0 4px 30px rgba(231,76,60,.3)}
+  .header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px;flex-wrap:wrap}
+  .header-brand{display:flex;align-items:center;gap:14px}
+  .header-titles h1{font-family:'Teko',sans-serif;font-size:2rem;font-weight:700;letter-spacing:2px;line-height:1;text-transform:uppercase}
+  .header-titles h1 span{color:var(--crimson)}
+  .header-titles .sub{font-size:.75rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:2px}
+  .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .live-badge{display:flex;align-items:center;gap:8px;background:rgba(231,76,60,.15);border:1px solid var(--crimson);border-radius:4px;padding:6px 14px;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--crimson)}
+  .live-dot{width:8px;height:8px;background:var(--crimson);border-radius:50%;animation:pulse 1s infinite}
+  .auto-badge{display:flex;align-items:center;gap:6px;background:rgba(243,156,18,.1);border:1px solid var(--gold);border-radius:4px;padding:6px 12px;font-size:.75rem;font-weight:700;letter-spacing:2px;color:var(--gold)}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+  .header-stats{display:flex;border-top:1px solid var(--border)}
+  .hstat{flex:1;text-align:center;padding:8px 12px;border-right:1px solid var(--border)}
+  .hstat:last-child{border-right:none}
+  .hstat .n{font-family:'Teko',sans-serif;font-size:1.4rem;color:var(--gold);line-height:1}
+  .hstat .l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+  /* TICKER */
+  .ticker{background:var(--crimson);padding:7px 0;overflow:hidden;position:relative;z-index:10}
+  .ticker-inner{display:flex;animation:tickerMove 40s linear infinite;white-space:nowrap}
+  .ticker-item{padding:0 30px;font-size:.78rem;font-weight:600;letter-spacing:.5px;border-right:1px solid rgba(255,255,255,.3)}
+  @keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* MAIN */
+  main{position:relative;z-index:5;max-width:1280px;margin:0 auto;padding:20px 16px 40px}
+
+  /* STATUS BAR */
+  .status-bar{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .status-left{display:flex;align-items:center;gap:10px}
+  .status-dot{width:10px;height:10px;border-radius:50%;background:#2ecc71;animation:pulse 2s infinite}
+  .status-text{font-size:.8rem;color:var(--muted)}
+  .status-text strong{color:var(--gold)}
+  .status-source{font-size:.72rem;color:var(--muted);background:rgba(255,255,255,.04);padding:4px 10px;border-radius:4px;border:1px solid var(--border)}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .section-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--gold),transparent)}
+
+  /* PARTY CARDS */
+  .party-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+  .party-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;position:relative;overflow:hidden;transition:transform .2s;animation:fadeIn .5s ease both}
+  .party-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+  .party-card.rsp::before{background:var(--rsp)}
+  .party-card.nc::before{background:var(--nc)}
+  .party-card.uml::before{background:var(--uml)}
+  .party-card.ncp::before{background:var(--ncp)}
+  .party-card:hover{transform:translateY(-2px)}
+  .party-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .party-name{font-family:'Teko',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:1px}
+  .seat-count{display:flex;gap:16px;margin-bottom:10px}
+  .seat-box{text-align:center}
+  .seat-box .num{font-family:'Teko',sans-serif;font-size:2.2rem;font-weight:700;line-height:1}
+  .seat-box .lbl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .seat-bar{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:8px}
+  .seat-bar-fill{height:100%;border-radius:3px;transition:width 1s ease}
+
+  /* MAJORITY BAR */
+  .majority-bar{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:28px}
+  .majority-label{display:flex;justify-content:space-between;margin-bottom:10px;font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .majority-label strong{color:var(--gold);font-size:.85rem}
+  .mega-bar{height:28px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;display:flex;position:relative}
+  .mega-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;overflow:hidden;white-space:nowrap;transition:width 1.2s ease}
+  .majority-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--gold);z-index:5}
+  .majority-line::after{content:'138 MAJORITY';position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.6rem;color:var(--gold);white-space:nowrap;font-weight:700;letter-spacing:1px}
+
+  /* HOT SEATS */
+  .hotseat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-bottom:28px}
+  .hotseat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .hotseat-header{padding:10px 14px;background:var(--card2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .hotseat-const{font-family:'Teko',sans-serif;font-size:1rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+  .hotseat-status{font-size:.65rem;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+  .status-counting{background:rgba(243,156,18,.2);color:var(--gold);border:1px solid var(--gold)}
+  .status-won{background:rgba(39,174,96,.2);color:#2ecc71;border:1px solid #2ecc71}
+  .hotseat-body{padding:14px}
+  .candidate-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .cand-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Teko',sans-serif;font-size:1.1rem;font-weight:700;border:2px solid}
+  .cand-info{flex:1;min-width:0}
+  .cand-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cand-party{font-size:.7rem;color:var(--muted)}
+  .cand-votes{text-align:right}
+  .cand-votes .vnum{font-family:'Teko',sans-serif;font-size:1.4rem;font-weight:700;line-height:1}
+  .cand-votes .vpct{font-size:.65rem;color:var(--muted)}
+  .vs-bar{height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;margin:8px 0;display:flex}
+  .vs-seg{height:100%;transition:width 1s ease}
+  .lead-tag{display:inline-block;font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+  .lead-tag.leading{background:rgba(231,76,60,.2);color:var(--crimson);border:1px solid var(--crimson)}
+  .lead-tag.won{background:rgba(39,174,96,.2);color:#2ecc71;border:1px solid #2ecc71}
+
+  /* TABLE */
+  .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px}
+  table{width:100%;border-collapse:collapse;font-size:.82rem}
+  thead tr{background:var(--card2);border-bottom:2px solid var(--crimson)}
+  th{padding:12px 14px;text-align:left;font-family:'Teko',sans-serif;font-size:.9rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+  tbody tr{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+  tbody tr:hover{background:rgba(255,255,255,.03)}
+  tbody tr:last-child{border-bottom:none}
+  td{padding:11px 14px;vertical-align:middle}
+  .won-num{font-family:'Teko',sans-serif;font-size:1.4rem;font-weight:700}
+  .lead-num{font-family:'Teko',sans-serif;font-size:1.2rem;color:var(--muted)}
+  .total-num{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold)}
+  .mini-bar{width:80px;height:5px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:8px}
+  .mini-bar-fill{height:100%;border-radius:2px}
+
+  /* SUMMARY BOX */
+  .summary-box{background:var(--card);border:1px solid rgba(243,156,18,.3);border-radius:10px;padding:20px;margin-bottom:28px}
+  .summary-box h3{font-family:'Teko',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);margin-bottom:12px}
+  .summary-text{font-size:.85rem;line-height:1.8;color:var(--text)}
+
+  .source-note{background:rgba(26,58,107,.3);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:.75rem;color:var(--muted);line-height:1.6}
+  .source-note strong{color:var(--text)}
+  .timestamp{font-size:.68rem;color:var(--muted);text-align:right;margin-bottom:6px}
+  .timestamp span{color:var(--gold)}
+  footer{text-align:center;padding:20px;color:var(--muted);font-size:.72rem;border-top:1px solid var(--border);position:relative;z-index:5}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes flash{0%,100%{opacity:1}50%{opacity:.3}}
+  .flash{animation:flash .5s ease 3}
+
+  @media(max-width:600px){
+    .header-titles h1{font-size:1.4rem}
+    .hstat .n{font-size:1.1rem}
+    th,td{padding:9px 8px}
+    .mini-bar{display:none}
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-top">
     <div class="header-brand">
-      <!-- Nepal flag SVG -->
-      <svg class="nepal-flag" viewBox="0 0 42 54" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,0 38,22 22,22 38,52 0,52" fill="#003893" stroke="#003893"/>
-        <polygon points="2,2 34,22 22,22 34,50 2,50" fill="#DC143C"/>
-        <polygon points="3,3 32,22 21,22 32,48 3,48" fill="#DC143C" stroke="#003893" stroke-width="0.5"/>
-        <!-- White moon -->
-        <g transform="translate(11,30)">
-          <circle cx="5" cy="0" r="4" fill="white" opacity="0.9"/>
-          <circle cx="7" cy="0" r="3.2" fill="#DC143C"/>
-          <!-- Simple star -->
-          <path d="M5,-6 L5.8,-3 L9,-3 L6.5,-1.2 L7.5,2 L5,0.2 L2.5,2 L3.5,-1.2 L1,-3 L4.2,-3 Z" fill="white" opacity="0.9" transform="scale(0.7) translate(1.5, 1)"/>
-        </g>
-        <!-- Sun -->
-        <g transform="translate(11,16)">
-          <circle cx="5" cy="0" r="4" fill="white" opacity="0.9"/>
-        </g>
+      <svg width="42" height="52" viewBox="0 0 42 54" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,0 38,22 22,22 38,52 0,52" fill="#003893"/>
+        <polygon points="2,2 34,22 20,22 34,50 2,50" fill="#DC143C"/>
+        <g transform="translate(10,30)"><circle cx="5" cy="0" r="4" fill="white" opacity="0.9"/><circle cx="7" cy="0" r="3.2" fill="#DC143C"/></g>
+        <g transform="translate(10,16)"><circle cx="5" cy="0" r="4" fill="white" opacity="0.9"/></g>
       </svg>
       <div class="header-titles">
         <h1>Nepal Election <span>2026</span></h1>
-        <div class="sub">House of Representatives • Live Vote Count</div>
+        <div class="sub">House of Representatives · Live Results</div>
       </div>
     </div>
-    <div class="live-badge">
-      <div class="live-dot"></div>
-      LIVE
+    <div class="header-right">
+      <div class="auto-badge">⚡ AUTO-UPDATE</div>
+      <div class="live-badge"><div class="live-dot"></div>LIVE</div>
     </div>
   </div>
   <div class="header-stats">
-    <div class="hstat">
-      <div class="n">275</div>
-      <div class="l">Total Seats</div>
-    </div>
-    <div class="hstat">
-      <div class="n">165</div>
-      <div class="l">FPTP Seats</div>
-    </div>
-    <div class="hstat">
-      <div class="n">110</div>
-      <div class="l">PR Seats</div>
-    </div>
-    <div class="hstat">
-      <div class="n">138</div>
-      <div class="l">Majority</div>
-    </div>
-    <div class="hstat">
-      <div class="n">~59%</div>
-      <div class="l">Turnout</div>
-    </div>
-    <div class="hstat">
-      <div class="n">3,406</div>
-      <div class="l">Candidates</div>
-    </div>
+    <div class="hstat"><div class="n">275</div><div class="l">Total Seats</div></div>
+    <div class="hstat"><div class="n">165</div><div class="l">FPTP Seats</div></div>
+    <div class="hstat"><div class="n">110</div><div class="l">PR Seats</div></div>
+    <div class="hstat"><div class="n">138</div><div class="l">Majority</div></div>
+    <div class="hstat"><div class="n" id="clock-display">--:--</div><div class="l">Nepal Time</div></div>
+    <div class="hstat"><div class="n" id="refresh-countdown">30</div><div class="l">Sec to Refresh</div></div>
   </div>
 </header>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner" id="ticker">
-    <div class="ticker-item">🔔 BREAKING: RSP leading in 69 seats | KP Oli trails Balen Shah by 11,000+ votes in Jhapa-5</div>
-    <div class="ticker-item">📊 RSP has won 2 seats, Nepali Congress wins 1 — counting ongoing</div>
-    <div class="ticker-item">🗳️ Rabi Lamichhane (RSP) leading in Chitwan-2 with 6,700 votes</div>
-    <div class="ticker-item">🌟 Sobita Gautam (RSP) leading Renu Dahal by 1,983 votes in Chitwan-3</div>
-    <div class="ticker-item">📌 Gagan Thapa (NC) running against Amresh Kr Singh (RSP) in Sarlahi-4 — RSP leads</div>
-    <div class="ticker-item">🔔 BREAKING: RSP leading in 69 seats | KP Oli trails Balen Shah by 11,000+ votes in Jhapa-5</div>
-    <div class="ticker-item">📊 RSP has won 2 seats, Nepali Congress wins 1 — counting ongoing</div>
-    <div class="ticker-item">🗳️ Rabi Lamichhane (RSP) leading in Chitwan-2 with 6,700 votes</div>
-    <div class="ticker-item">🌟 Sobita Gautam (RSP) leading Renu Dahal by 1,983 votes in Chitwan-3</div>
-    <div class="ticker-item">📌 Gagan Thapa (NC) running against Amresh Kr Singh (RSP) in Sarlahi-4 — RSP leads</div>
-  </div>
-</div>
+<div class="ticker"><div class="ticker-inner" id="ticker-el">
+  <div class="ticker-item" id="t1">🔴 Loading latest results...</div>
+  <div class="ticker-item" id="t2">🗳️ Nepal HoR Election 2082 BS — Counting in progress</div>
+  <div class="ticker-item" id="t3">📊 Data auto-updating every 5 minutes via GitHub Actions</div>
+  <div class="ticker-item" id="t4">🔔 RSP wave across Nepal | Balen Shah vs KP Oli in Jhapa-5</div>
+  <div class="ticker-item" id="t1b">🔴 Loading latest results...</div>
+  <div class="ticker-item" id="t2b">🗳️ Nepal HoR Election 2082 BS — Counting in progress</div>
+  <div class="ticker-item" id="t3b">📊 Data auto-updating every 5 minutes via GitHub Actions</div>
+  <div class="ticker-item" id="t4b">🔔 RSP wave across Nepal | Balen Shah vs KP Oli in Jhapa-5</div>
+</div></div>
 
-<!-- MAIN -->
 <main>
+  <div class="timestamp">Nepal Time: <span id="clock">--</span> &nbsp;|&nbsp; Data: <span id="data-time">Loading...</span></div>
 
-  <!-- TIMESTAMP -->
-  <div class="timestamp">Last updated: <span id="clock">Loading...</span> Nepal Time · Data sourced from Election Commission Nepal & media reports · <span>Counting in progress — partial results</span></div>
+  <div class="status-bar">
+    <div class="status-left">
+      <div class="status-dot"></div>
+      <div class="status-text" id="status-text">⏳ Loading latest data from GitHub...</div>
+    </div>
+    <div class="status-source" id="status-source">Source: —</div>
+  </div>
 
-  <!-- PARTY SUMMARY CARDS -->
-  <div class="section-title">🏆 Party Standings (FPTP Seats)</div>
+  <div class="section-title">📰 Latest Summary</div>
+  <div class="summary-box">
+    <h3>🗳️ ELECTION BRIEFING</h3>
+    <div class="summary-text" id="summary-text">Loading latest results...</div>
+  </div>
 
-  <div class="party-grid">
-    <!-- RSP -->
+  <div class="section-title">🏆 Party Standings</div>
+  <div class="party-grid" id="party-grid">
     <div class="party-card rsp">
-      <div class="party-header">
-        <span class="party-name" style="color:var(--rsp-color)">RSP 🔔</span>
-        <span class="party-symbol">🔔</span>
-      </div>
-      <div style="font-size:0.72rem; color:var(--muted); margin-bottom:10px;">Rastriya Swatantra Party<br>Led by Balendra Shah</div>
+      <div class="party-header"><span class="party-name" style="color:var(--rsp)">🔔 RSP</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Rastriya Swatantra Party</div>
       <div class="seat-count">
-        <div class="seat-box">
-          <div class="num" style="color:var(--rsp-color)">2</div>
-          <div class="lbl">Won</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:var(--rsp-color)">69</div>
-          <div class="lbl">Leading</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:#fff">71</div>
-          <div class="lbl">Total</div>
-        </div>
+        <div class="seat-box"><div class="num" style="color:var(--rsp)" id="rsp-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--rsp)" id="rsp-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="rsp-total">—</div><div class="lbl">Total</div></div>
       </div>
-      <div class="seat-bar"><div class="seat-bar-fill" style="width:43%"></div></div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--rsp);width:0%" id="rsp-bar"></div></div>
     </div>
-
-    <!-- NC -->
     <div class="party-card nc">
-      <div class="party-header">
-        <span class="party-name" style="color:var(--nc-color)">Nepali Congress 🌳</span>
-        <span class="party-symbol">🌳</span>
-      </div>
-      <div style="font-size:0.72rem; color:var(--muted); margin-bottom:10px;">Nepali Congress Party<br>Led by Gagan Thapa</div>
+      <div class="party-header"><span class="party-name" style="color:var(--nc)">🌳 Nepali Congress</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">NC</div>
       <div class="seat-count">
-        <div class="seat-box">
-          <div class="num" style="color:var(--nc-color)">1</div>
-          <div class="lbl">Won</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:var(--nc-color)">9</div>
-          <div class="lbl">Leading</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:#fff">10</div>
-          <div class="lbl">Total</div>
-        </div>
+        <div class="seat-box"><div class="num" style="color:var(--nc)" id="nc-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--nc)" id="nc-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="nc-total">—</div><div class="lbl">Total</div></div>
       </div>
-      <div class="seat-bar"><div class="seat-bar-fill" style="width:6%"></div></div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--nc);width:0%" id="nc-bar"></div></div>
     </div>
-
-    <!-- UML -->
     <div class="party-card uml">
-      <div class="party-header">
-        <span class="party-name" style="color:var(--uml-color)">CPN-UML ☀️</span>
-        <span class="party-symbol">☀️</span>
-      </div>
-      <div style="font-size:0.72rem; color:var(--muted); margin-bottom:10px;">Communist Party Nepal (UML)<br>Led by KP Sharma Oli</div>
+      <div class="party-header"><span class="party-name" style="color:var(--uml)">☀️ CPN-UML</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">KP Oli's Party</div>
       <div class="seat-count">
-        <div class="seat-box">
-          <div class="num" style="color:var(--uml-color)">0</div>
-          <div class="lbl">Won</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:var(--uml-color)">5</div>
-          <div class="lbl">Leading</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:#fff">5</div>
-          <div class="lbl">Total</div>
-        </div>
+        <div class="seat-box"><div class="num" style="color:var(--uml)" id="uml-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--uml)" id="uml-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="uml-total">—</div><div class="lbl">Total</div></div>
       </div>
-      <div class="seat-bar"><div class="seat-bar-fill" style="width:3%"></div></div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--uml);width:0%" id="uml-bar"></div></div>
     </div>
-
-    <!-- NCP -->
     <div class="party-card ncp">
-      <div class="party-header">
-        <span class="party-name" style="color:var(--ncp-color)">NCP (Maoist) 💥</span>
-        <span class="party-symbol">💥</span>
-      </div>
-      <div style="font-size:0.72rem; color:var(--muted); margin-bottom:10px;">Nepal Communist Party<br>Led by Pushpa Kamal Dahal</div>
+      <div class="party-header"><span class="party-name" style="color:var(--ncp)">💥 NCP Maoist</span></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Prachanda's Party</div>
       <div class="seat-count">
-        <div class="seat-box">
-          <div class="num" style="color:var(--ncp-color)">0</div>
-          <div class="lbl">Won</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:var(--ncp-color)">4</div>
-          <div class="lbl">Leading</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:#fff">4</div>
-          <div class="lbl">Total</div>
-        </div>
+        <div class="seat-box"><div class="num" style="color:var(--ncp)" id="ncp-won">—</div><div class="lbl">Won</div></div>
+        <div class="seat-box"><div class="num" style="color:var(--ncp)" id="ncp-leading">—</div><div class="lbl">Leading</div></div>
+        <div class="seat-box"><div class="num" style="color:#fff" id="ncp-total">—</div><div class="lbl">Total</div></div>
       </div>
-      <div class="seat-bar"><div class="seat-bar-fill" style="width:2.5%"></div></div>
-    </div>
-
-    <!-- OTHERS -->
-    <div class="party-card others">
-      <div class="party-header">
-        <span class="party-name" style="color:var(--muted)">Others</span>
-        <span class="party-symbol">🔷</span>
-      </div>
-      <div style="font-size:0.72rem; color:var(--muted); margin-bottom:10px;">Independents & other<br>smaller parties</div>
-      <div class="seat-count">
-        <div class="seat-box">
-          <div class="num" style="color:var(--muted)">0</div>
-          <div class="lbl">Won</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:var(--muted)">—</div>
-          <div class="lbl">Leading</div>
-        </div>
-        <div class="seat-box">
-          <div class="num" style="color:#fff">—</div>
-          <div class="lbl">Total</div>
-        </div>
-      </div>
-      <div class="seat-bar"><div class="seat-bar-fill" style="width:1%"></div></div>
+      <div class="seat-bar"><div class="seat-bar-fill" style="background:var(--ncp);width:0%" id="ncp-bar"></div></div>
     </div>
   </div>
 
-  <!-- MAJORITY BAR -->
   <div class="majority-bar">
     <div class="majority-label">
-      <span>Seats Won/Leading out of 165 FPTP — <strong>138 needed for majority (all 275)</strong></span>
+      <span>Seats out of 165 FPTP — <strong>138 needed for majority (of 275)</strong></span>
       <span>Partial results · counting ongoing</span>
     </div>
-    <div class="mega-bar">
-      <div class="mega-seg" style="width:77%; background:rgba(231,76,60,0.7); color:#fff;">RSP 71</div>
-      <div class="mega-seg" style="width:11%; background:rgba(39,174,96,0.7); color:#fff;">NC 10</div>
-      <div class="mega-seg" style="width:5%; background:rgba(230,126,34,0.7); color:#fff;">UML 5</div>
-      <div class="mega-seg" style="width:4%; background:rgba(142,68,173,0.7); color:#fff;">NCP 4</div>
-      <div class="mega-seg" style="width:3%; background:rgba(100,100,100,0.4); color:#aaa;"></div>
+    <div class="mega-bar" id="mega-bar">
+      <div class="mega-seg" style="flex:1;background:rgba(100,100,100,.2)">Loading...</div>
       <div class="majority-line"></div>
     </div>
-    <div style="margin-top:8px; font-size:0.7rem; color:var(--muted);">Note: These are early partial FPTP trends. Final totals include 110 proportional seats. Full results expected Friday night.</div>
+    <div style="margin-top:8px;font-size:.7rem;color:var(--muted)">110 PR seats added after FPTP declaration. Total = 275 seats.</div>
   </div>
 
-  <!-- HOT SEATS -->
   <div class="section-title">🔥 Hot Seat Live Results</div>
-
-  <div class="hotseat-grid">
-
-    <!-- Balen vs KP Oli -->
-    <div class="hotseat-card">
-      <div class="hotseat-header">
-        <span class="hotseat-const">Jhapa — 5</span>
-        <span class="hotseat-status status-counting">🔴 Counting</span>
-      </div>
-      <div class="hotseat-body">
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(231,76,60,0.15); border-color:var(--rsp-color); color:var(--rsp-color);">BS</div>
-          <div class="cand-info">
-            <div class="cand-name">Balendra "Balen" Shah</div>
-            <div class="cand-party">🔔 Rastriya Swatantra Party</div>
-            <div class="lead-tag leading">⬆ LEADING</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--rsp-color)">17,396</div>
-            <div class="vpct">74.1%</div>
-          </div>
-        </div>
-        <div class="vs-bar">
-          <div class="vs-seg" style="width:74%; background:var(--rsp-color);"></div>
-          <div class="vs-seg" style="width:26%; background:var(--uml-color);"></div>
-        </div>
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(230,126,34,0.15); border-color:var(--uml-color); color:var(--uml-color);">KO</div>
-          <div class="cand-info">
-            <div class="cand-name">KP Sharma Oli</div>
-            <div class="cand-party">☀️ CPN-UML (Ex-PM)</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--uml-color)">6,087</div>
-            <div class="vpct">25.9%</div>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:0.72rem; color:var(--muted); text-align:center;">
-          Lead margin: <strong style="color:var(--crimson)">+11,309 votes</strong> for Balen Shah
-        </div>
-      </div>
-    </div>
-
-    <!-- Sobita vs Renu Dahal -->
-    <div class="hotseat-card">
-      <div class="hotseat-header">
-        <span class="hotseat-const">Chitwan — 3</span>
-        <span class="hotseat-status status-counting">🔴 Counting</span>
-      </div>
-      <div class="hotseat-body">
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(231,76,60,0.15); border-color:var(--rsp-color); color:var(--rsp-color);">SG</div>
-          <div class="cand-info">
-            <div class="cand-name">Sobita Gautam</div>
-            <div class="cand-party">🔔 Rastriya Swatantra Party</div>
-            <div class="lead-tag leading">⬆ LEADING</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--rsp-color)">4,941</div>
-            <div class="vpct">59.8%</div>
-          </div>
-        </div>
-        <div class="vs-bar">
-          <div class="vs-seg" style="width:60%; background:var(--rsp-color);"></div>
-          <div class="vs-seg" style="width:36%; background:var(--ncp-color);"></div>
-          <div class="vs-seg" style="width:4%; background:rgba(100,100,100,0.4);"></div>
-        </div>
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(142,68,173,0.15); border-color:var(--ncp-color); color:var(--ncp-color);">RD</div>
-          <div class="cand-info">
-            <div class="cand-name">Renu Dahal</div>
-            <div class="cand-party">💥 NCP (Maoist Centre)</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--ncp-color)">2,958</div>
-            <div class="vpct">35.8%</div>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:0.72rem; color:var(--muted); text-align:center;">
-          Lead margin: <strong style="color:var(--crimson)">+1,983 votes</strong> for Sobita Gautam
-        </div>
-      </div>
-    </div>
-
-    <!-- Gagan Thapa vs Amresh -->
-    <div class="hotseat-card">
-      <div class="hotseat-header">
-        <span class="hotseat-const">Sarlahi — 4</span>
-        <span class="hotseat-status status-counting">🔴 Counting</span>
-      </div>
-      <div class="hotseat-body">
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(231,76,60,0.15); border-color:var(--rsp-color); color:var(--rsp-color);">AK</div>
-          <div class="cand-info">
-            <div class="cand-name">Amresh Kumar Singh</div>
-            <div class="cand-party">🔔 Rastriya Swatantra Party</div>
-            <div class="lead-tag leading">⬆ LEADING</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--rsp-color)">1,908</div>
-            <div class="vpct">52.1%</div>
-          </div>
-        </div>
-        <div class="vs-bar">
-          <div class="vs-seg" style="width:52%; background:var(--rsp-color);"></div>
-          <div class="vs-seg" style="width:15%; background:var(--nc-color);"></div>
-          <div class="vs-seg" style="width:10%; background:var(--ncp-color);"></div>
-          <div class="vs-seg" style="width:23%; background:rgba(100,100,100,0.2);"></div>
-        </div>
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(39,174,96,0.15); border-color:var(--nc-color); color:var(--nc-color);">GT</div>
-          <div class="cand-info">
-            <div class="cand-name">Gagan Thapa</div>
-            <div class="cand-party">🌳 Nepali Congress (NC President)</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--nc-color)">536</div>
-            <div class="vpct">14.6%</div>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:0.72rem; color:var(--muted); text-align:center;">
-          Lead margin: <strong style="color:var(--crimson)">+1,372 votes</strong> for Amresh Kumar Singh · <em>Early partial count</em>
-        </div>
-      </div>
-    </div>
-
-    <!-- Rabi Lamichhane -->
-    <div class="hotseat-card">
-      <div class="hotseat-header">
-        <span class="hotseat-const">Chitwan — 2</span>
-        <span class="hotseat-status status-counting">🔴 Counting</span>
-      </div>
-      <div class="hotseat-body">
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(231,76,60,0.15); border-color:var(--rsp-color); color:var(--rsp-color);">RL</div>
-          <div class="cand-info">
-            <div class="cand-name">Rabi Lamichhane</div>
-            <div class="cand-party">🔔 RSP (Party Chairman)</div>
-            <div class="lead-tag leading">⬆ LEADING</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--rsp-color)">6,700</div>
-            <div class="vpct">48.5%</div>
-          </div>
-        </div>
-        <div class="vs-bar">
-          <div class="vs-seg" style="width:49%; background:var(--rsp-color);"></div>
-          <div class="vs-seg" style="width:17%; background:var(--uml-color);"></div>
-          <div class="vs-seg" style="width:17%; background:var(--nc-color);"></div>
-          <div class="vs-seg" style="width:17%; background:rgba(100,100,100,0.2);"></div>
-        </div>
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(230,126,34,0.15); border-color:var(--uml-color); color:var(--uml-color);">AG</div>
-          <div class="cand-info">
-            <div class="cand-name">Asmin Ghimire</div>
-            <div class="cand-party">☀️ CPN-UML</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--uml-color)">2,329</div>
-            <div class="vpct">16.8%</div>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:0.72rem; color:var(--muted); text-align:center;">
-          Lead margin: <strong style="color:var(--crimson)">+4,371 votes</strong> for Rabi Lamichhane
-        </div>
-      </div>
-    </div>
-
-    <!-- Pushpa Kamal Dahal -->
-    <div class="hotseat-card">
-      <div class="hotseat-header">
-        <span class="hotseat-const">Rukum East</span>
-        <span class="hotseat-status status-counting">🔴 Counting</span>
-      </div>
-      <div class="hotseat-body">
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(142,68,173,0.15); border-color:var(--ncp-color); color:var(--ncp-color);">PD</div>
-          <div class="cand-info">
-            <div class="cand-name">Pushpa Kamal Dahal</div>
-            <div class="cand-party">💥 NCP (Prachanda)</div>
-            <div class="lead-tag leading">⬆ LEADING</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--ncp-color)">1,415</div>
-            <div class="vpct">61.7%</div>
-          </div>
-        </div>
-        <div class="vs-bar">
-          <div class="vs-seg" style="width:62%; background:var(--ncp-color);"></div>
-          <div class="vs-seg" style="width:19%; background:var(--uml-color);"></div>
-          <div class="vs-seg" style="width:19%; background:var(--nc-color);"></div>
-        </div>
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(230,126,34,0.15); border-color:var(--uml-color); color:var(--uml-color);">LG</div>
-          <div class="cand-info">
-            <div class="cand-name">Lilamani Gautam</div>
-            <div class="cand-party">☀️ CPN-UML</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--uml-color)">431</div>
-            <div class="vpct">18.8%</div>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:0.72rem; color:var(--muted); text-align:center;">
-          Lead margin: <strong style="color:var(--ncp-color)">+984 votes</strong> for Prachanda
-        </div>
-      </div>
-    </div>
-
-    <!-- Bhaktapur-2 -->
-    <div class="hotseat-card">
-      <div class="hotseat-header">
-        <span class="hotseat-const">Bhaktapur — 2</span>
-        <span class="hotseat-status status-counting">🔴 Counting</span>
-      </div>
-      <div class="hotseat-body">
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(231,76,60,0.15); border-color:var(--rsp-color); color:var(--rsp-color);">RK</div>
-          <div class="cand-info">
-            <div class="cand-name">Rajiv Khatri</div>
-            <div class="cand-party">🔔 RSP</div>
-            <div class="lead-tag leading">⬆ LEADING</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--rsp-color)">7,002</div>
-            <div class="vpct">68.7%</div>
-          </div>
-        </div>
-        <div class="vs-bar">
-          <div class="vs-seg" style="width:69%; background:var(--rsp-color);"></div>
-          <div class="vs-seg" style="width:25%; background:var(--uml-color);"></div>
-          <div class="vs-seg" style="width:6%; background:var(--nc-color);"></div>
-        </div>
-        <div class="candidate-row">
-          <div class="cand-avatar" style="background:rgba(230,126,34,0.15); border-color:var(--uml-color); color:var(--uml-color);">MB</div>
-          <div class="cand-info">
-            <div class="cand-name">Mahesh Basnet</div>
-            <div class="cand-party">☀️ CPN-UML</div>
-          </div>
-          <div class="cand-votes">
-            <div class="vnum" style="color:var(--uml-color)">2,538</div>
-            <div class="vpct">24.9%</div>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:0.72rem; color:var(--muted); text-align:center;">
-          Lead margin: <strong style="color:var(--crimson)">+4,464 votes</strong> for Rajiv Khatri
-        </div>
-      </div>
-    </div>
-
+  <div class="hotseat-grid" id="hotseat-grid">
+    <!-- Populated by JS -->
+    <div style="color:var(--muted);font-size:.85rem;padding:20px">Loading hot seat results...</div>
   </div>
 
-  <!-- FULL TABLE -->
-  <div class="section-title">📋 Party-wise Seat Summary</div>
-
+  <div class="section-title">📋 Full Party Summary</div>
   <div class="table-wrap">
     <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Party</th>
-          <th>Seats Won</th>
-          <th>Currently Leading</th>
-          <th>Total (W+L)</th>
-          <th>% of contested</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="rank-num">1</td>
-          <td>
-            <div class="party-pill" style="background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3);">
-              <div class="party-dot" style="background:var(--rsp-color)"></div>
-              <span style="color:var(--rsp-color)">🔔 RSP</span>
-              <span style="color:var(--muted); font-size:0.7rem;">Rastriya Swatantra</span>
-            </div>
-          </td>
-          <td><span class="won-num" style="color:var(--rsp-color)">2</span></td>
-          <td><span class="lead-num">69</span></td>
-          <td>
-            <span class="total-num">71</span>
-            <div class="mini-bar" style="width:100px">
-              <div class="mini-bar-fill" style="width:43%; background:var(--rsp-color)"></div>
-            </div>
-          </td>
-          <td style="color:var(--gold); font-weight:600;">43.0%</td>
-        </tr>
-        <tr>
-          <td class="rank-num">2</td>
-          <td>
-            <div class="party-pill" style="background:rgba(39,174,96,0.1); border:1px solid rgba(39,174,96,0.3);">
-              <div class="party-dot" style="background:var(--nc-color)"></div>
-              <span style="color:var(--nc-color)">🌳 Nepali Congress</span>
-              <span style="color:var(--muted); font-size:0.7rem;">NC</span>
-            </div>
-          </td>
-          <td><span class="won-num" style="color:var(--nc-color)">1</span></td>
-          <td><span class="lead-num">9</span></td>
-          <td>
-            <span class="total-num">10</span>
-            <div class="mini-bar" style="width:100px">
-              <div class="mini-bar-fill" style="width:6%; background:var(--nc-color)"></div>
-            </div>
-          </td>
-          <td style="color:var(--gold); font-weight:600;">6.1%</td>
-        </tr>
-        <tr>
-          <td class="rank-num">3</td>
-          <td>
-            <div class="party-pill" style="background:rgba(230,126,34,0.1); border:1px solid rgba(230,126,34,0.3);">
-              <div class="party-dot" style="background:var(--uml-color)"></div>
-              <span style="color:var(--uml-color)">☀️ CPN-UML</span>
-              <span style="color:var(--muted); font-size:0.7rem;">Oli's party</span>
-            </div>
-          </td>
-          <td><span class="won-num" style="color:var(--uml-color)">0</span></td>
-          <td><span class="lead-num">5</span></td>
-          <td>
-            <span class="total-num">5</span>
-            <div class="mini-bar" style="width:100px">
-              <div class="mini-bar-fill" style="width:3%; background:var(--uml-color)"></div>
-            </div>
-          </td>
-          <td style="color:var(--gold); font-weight:600;">3.0%</td>
-        </tr>
-        <tr>
-          <td class="rank-num">4</td>
-          <td>
-            <div class="party-pill" style="background:rgba(142,68,173,0.1); border:1px solid rgba(142,68,173,0.3);">
-              <div class="party-dot" style="background:var(--ncp-color)"></div>
-              <span style="color:var(--ncp-color)">💥 NCP Maoist</span>
-              <span style="color:var(--muted); font-size:0.7rem;">Prachanda's</span>
-            </div>
-          </td>
-          <td><span class="won-num" style="color:var(--ncp-color)">0</span></td>
-          <td><span class="lead-num">4</span></td>
-          <td>
-            <span class="total-num">4</span>
-            <div class="mini-bar" style="width:100px">
-              <div class="mini-bar-fill" style="width:2.5%; background:var(--ncp-color)"></div>
-            </div>
-          </td>
-          <td style="color:var(--gold); font-weight:600;">2.4%</td>
-        </tr>
-        <tr>
-          <td class="rank-num">5</td>
-          <td>
-            <div class="party-pill" style="background:rgba(100,100,100,0.1); border:1px solid rgba(100,100,100,0.3);">
-              <div class="party-dot" style="background:var(--muted)"></div>
-              <span style="color:var(--muted)">🔷 Others / Ind.</span>
-            </div>
-          </td>
-          <td><span class="won-num" style="color:var(--muted)">0</span></td>
-          <td><span class="lead-num" style="color:var(--muted)">—</span></td>
-          <td><span class="total-num" style="color:var(--muted)">—</span></td>
-          <td style="color:var(--muted);">Counting</td>
-        </tr>
+      <thead><tr><th>#</th><th>Party</th><th>Won</th><th>Leading</th><th>Total</th><th>%</th></tr></thead>
+      <tbody id="party-tbody">
+        <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px">Loading...</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- DISCLAIMER / SOURCE -->
   <div class="source-note">
-    <strong>⚠️ Data Disclaimer:</strong> These are <strong>partial, early counting results</strong> as of March 6, 2026. Vote counting is still ongoing across all 165 constituencies. Full results are expected by Friday night Nepal time. Data sourced from: 
-    <strong>Election Commission of Nepal</strong> (election.gov.np), 
-    <strong>The Kathmandu Post</strong>, <strong>Ekantipur</strong>, and international news agencies (AFP, Reuters).
+    <strong>⚠️ Data Note:</strong> Results are automatically fetched every 5 minutes from <strong>OnlineKhabar, Setopati, Kathmandu Post, and Ekantipur</strong> via GitHub Actions. These are partial counting figures. Always verify final results at <strong>election.gov.np</strong>.
     <br><br>
-    <strong>📌 Note on PR Seats:</strong> An additional 110 seats will be allocated through Proportional Representation based on nationwide vote share — these results will be calculated only after all FPTP results are declared. Total seats = 275.
-    <br><br>
-    <strong>🔗 For official results:</strong> Visit <strong>election.gov.np</strong> | For live updates: <strong>kathmandupost.com</strong> · <strong>ekantipur.com</strong>
+    <strong>🤖 How it works:</strong> A GitHub Actions robot runs every 5 minutes, scrapes Nepal election news sites, and saves results to <code>data.json</code> in this repository. This page reads that file every 30 seconds automatically.
   </div>
-
 </main>
 
 <footer>
-  Nepal House of Representatives Election 2082 BS (2026) · Data from official & verified media sources · This dashboard is for informational purposes only
-  <br>Results are partial and being updated as counting progresses · Please verify with official Election Commission sources
+  Nepal HoR Election 2082 BS (2026) · Auto-updated via GitHub Actions · Data from verified media sources<br>
+  Official results: <strong>election.gov.np</strong> · Dashboard by karkianup011
 </footer>
 
 <script>
-  // Live clock
-  function updateClock() {
-    const now = new Date();
-    const npt = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' }));
-    const h = npt.getHours().toString().padStart(2,'0');
-    const m = npt.getMinutes().toString().padStart(2,'0');
-    const s = npt.getSeconds().toString().padStart(2,'0');
-    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    document.getElementById('clock').textContent = `${days[npt.getDay()]}, ${h}:${m}:${s} NPT`;
+// ─── Clock ───
+function updateClock() {
+  const npt = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' }));
+  const h = npt.getHours().toString().padStart(2,'0');
+  const m = npt.getMinutes().toString().padStart(2,'0');
+  const s = npt.getSeconds().toString().padStart(2,'0');
+  document.getElementById('clock').textContent =
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][npt.getDay()] + ' ' + h+':'+m+':'+s + ' NPT';
+  document.getElementById('clock-display').textContent = h+':'+m;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ─── Countdown to next page refresh ───
+let secs = 30;
+setInterval(() => {
+  secs--;
+  if (secs <= 0) { secs = 30; loadData(); }
+  document.getElementById('refresh-countdown').textContent = secs;
+}, 1000);
+
+// ─── Party colours ───
+const PARTY_COLORS = { rsp:'#e74c3c', nc:'#27ae60', uml:'#e67e22', ncp:'#8e44ad' };
+const PARTY_LABELS = {
+  rsp: { emoji:'🔔', name:'RSP', full:'Rastriya Swatantra Party' },
+  nc:  { emoji:'🌳', name:'NC',  full:'Nepali Congress' },
+  uml: { emoji:'☀️', name:'CPN-UML', full:"KP Oli's Party" },
+  ncp: { emoji:'💥', name:'NCP Maoist', full:"Prachanda's Party" },
+};
+
+// ─── Load data.json from GitHub ───
+async function loadData() {
+  try {
+    // Cache-bust so browser always gets freshest version
+    const url = 'data.json?v=' + Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+    renderDashboard(d);
+    document.getElementById('status-text').innerHTML =
+      '✅ <strong>Live data loaded</strong> — updated by GitHub Actions every 5 min';
+    document.getElementById('status-source').textContent = 'Source: ' + (d.source || 'GitHub Actions');
+    document.getElementById('data-time').textContent = d.lastUpdated || '—';
+    document.getElementById('data-time').style.color = '#f39c12';
+  } catch(e) {
+    document.getElementById('status-text').innerHTML =
+      '⚠️ Could not load data.json — <strong>check GitHub Actions is running</strong>';
+    console.error(e);
   }
-  setInterval(updateClock, 1000);
-  updateClock();
+}
+
+// ─── Render everything ───
+function renderDashboard(d) {
+  // Summary
+  document.getElementById('summary-text').textContent = d.summary || '—';
+
+  // Ticker
+  const ticker = d.ticker || '';
+  ['t1','t1b'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '🔴 ' + ticker;
+  });
+
+  // Party cards + table
+  const p = d.parties;
+  if (p) {
+    const order = ['rsp','nc','uml','ncp'];
+    order.forEach(key => {
+      if (!p[key]) return;
+      const won = p[key].won || 0;
+      const leading = p[key].leading || 0;
+      const total = p[key].total || (won + leading);
+      const barPct = Math.min((total/165)*100, 100).toFixed(1);
+      setEl(key+'-won', won);
+      setEl(key+'-leading', leading);
+      setEl(key+'-total', total);
+      const bar = document.getElementById(key+'-bar');
+      if (bar) { bar.style.width = barPct + '%'; bar.classList.add('flash'); }
+    });
+
+    // Mega bar
+    const rspT = p.rsp?.total || 0, ncT = p.nc?.total || 0;
+    const umlT = p.uml?.total || 0, ncpT = p.ncp?.total || 0;
+    const rspPct = Math.min((rspT/165)*100, 55);
+    const ncPct  = Math.min((ncT/165)*100,  15);
+    const umlPct = Math.min((umlT/165)*100, 10);
+    const ncpPct = Math.min((ncpT/165)*100, 10);
+    document.getElementById('mega-bar').innerHTML = `
+      <div class="mega-seg" style="width:${rspPct}%;background:rgba(231,76,60,.75);color:#fff">RSP ${rspT}</div>
+      <div class="mega-seg" style="width:${ncPct}%;background:rgba(39,174,96,.75);color:#fff">NC ${ncT}</div>
+      <div class="mega-seg" style="width:${umlPct}%;background:rgba(230,126,34,.75);color:#fff">UML ${umlT}</div>
+      <div class="mega-seg" style="width:${ncpPct}%;background:rgba(142,68,173,.75);color:#fff">NCP ${ncpT}</div>
+      <div class="mega-seg" style="flex:1;background:rgba(100,100,100,.15)"></div>
+      <div class="majority-line"></div>`;
+
+    // Table
+    document.getElementById('party-tbody').innerHTML = order.map((key, i) => {
+      if (!p[key]) return '';
+      const won = p[key].won || 0, leading = p[key].leading || 0, total = p[key].total || won+leading;
+      const pct = ((total/165)*100).toFixed(1);
+      const barW = Math.min((total/165)*100, 100).toFixed(1);
+      const col = PARTY_COLORS[key], lbl = PARTY_LABELS[key];
+      return `<tr>
+        <td style="font-family:Teko;font-size:1.1rem;color:var(--muted)">${i+1}</td>
+        <td><div style="display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:20px;background:${col}18;border:1px solid ${col}44;font-weight:600;font-size:.8rem">
+          <div style="width:8px;height:8px;border-radius:50%;background:${col}"></div>
+          <span style="color:${col}">${lbl.emoji} ${lbl.name}</span>
+        </div></td>
+        <td><span style="font-family:Teko;font-size:1.4rem;font-weight:700;color:${col}">${won}</span></td>
+        <td><span style="font-family:Teko;font-size:1.2rem;color:var(--muted)">${leading}</span></td>
+        <td><span style="font-family:Teko;font-size:1.3rem;font-weight:700;color:var(--gold)">${total}</span>
+          <div style="width:80px;height:5px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:8px">
+            <div style="height:100%;border-radius:2px;background:${col};width:${barW}%"></div></div></td>
+        <td style="color:var(--gold);font-weight:600">${pct}%</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Hot seats
+  const hs = d.hotseats;
+  if (hs) {
+    const grid = document.getElementById('hotseat-grid');
+    grid.innerHTML = Object.entries(hs).map(([key, seat]) => {
+      const total = (seat.v1 || 0) + (seat.v2 || 0);
+      const pct1 = total ? Math.round((seat.v1/total)*100) : 50;
+      const pct2 = 100 - pct1;
+      const col1 = getPartyColor(seat.p1);
+      const col2 = getPartyColor(seat.p2);
+      const lead = seat.lead || (seat.v1 - seat.v2);
+      const ini1 = initials(seat.c1);
+      const ini2 = initials(seat.c2);
+      const isWon = seat.status === 'won';
+      return `
+      <div class="hotseat-card">
+        <div class="hotseat-header">
+          <span class="hotseat-const">${seat.const}</span>
+          <span class="hotseat-status ${isWon ? 'status-won' : 'status-counting'}">${isWon ? '✅ RESULT' : '🔴 Counting'}</span>
+        </div>
+        <div class="hotseat-body">
+          <div class="candidate-row">
+            <div class="cand-avatar" style="background:${col1}18;border-color:${col1};color:${col1}">${ini1}</div>
+            <div class="cand-info">
+              <div class="cand-name">${seat.c1}</div>
+              <div class="cand-party">${partyEmoji(seat.p1)} ${seat.p1}</div>
+              <div class="lead-tag leading">⬆ LEADING</div>
+            </div>
+            <div class="cand-votes">
+              <div class="vnum" style="color:${col1}">${(seat.v1||0).toLocaleString()}</div>
+              <div class="vpct">${pct1}%</div>
+            </div>
+          </div>
+          <div class="vs-bar">
+            <div class="vs-seg" style="width:${pct1}%;background:${col1}"></div>
+            <div class="vs-seg" style="width:${pct2}%;background:${col2}"></div>
+          </div>
+          <div class="candidate-row">
+            <div class="cand-avatar" style="background:${col2}18;border-color:${col2};color:${col2}">${ini2}</div>
+            <div class="cand-info">
+              <div class="cand-name">${seat.c2}</div>
+              <div class="cand-party">${partyEmoji(seat.p2)} ${seat.p2}</div>
+            </div>
+            <div class="cand-votes">
+              <div class="vnum" style="color:${col2}">${(seat.v2||0).toLocaleString()}</div>
+              <div class="vpct">${pct2}%</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:.72rem;color:var(--muted);text-align:center">
+            Lead margin: <strong style="color:var(--crimson)">+${Math.abs(lead).toLocaleString()} votes</strong> for ${seat.c1.split(' ')[0]}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function setEl(id, val) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = val; el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),2000); }
+}
+
+function initials(name) {
+  return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+}
+
+function getPartyColor(party) {
+  if (!party) return '#6a8fad';
+  const p = party.toLowerCase();
+  if (p.includes('rsp') || p.includes('swatantra')) return '#e74c3c';
+  if (p.includes('congress') || p === 'nc') return '#27ae60';
+  if (p.includes('uml') || p.includes('oli')) return '#e67e22';
+  if (p.includes('maoist') || p.includes('ncp') || p.includes('prachanda')) return '#8e44ad';
+  return '#6a8fad';
+}
+
+function partyEmoji(party) {
+  if (!party) return '🔷';
+  const p = party.toLowerCase();
+  if (p.includes('rsp') || p.includes('swatantra')) return '🔔';
+  if (p.includes('congress') || p === 'nc') return '🌳';
+  if (p.includes('uml')) return '☀️';
+  if (p.includes('maoist') || p.includes('ncp')) return '💥';
+  return '🔷';
+}
+
+// Initial load
+loadData();
 </script>
 </body>
 </html>
