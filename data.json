@@ -81,6 +81,58 @@
       "lead": 984
     }
   },
+  "constituencies": [
+    {
+      "const": "Jhapa-1",
+      "district": "Jhapa",
+      "candidate": "Candidate A",
+      "party": "NC",
+      "votes": 18400,
+      "runner_up": "Candidate B",
+      "runner_votes": 17950,
+      "status": "counting"
+    },
+    {
+      "const": "Jhapa-2",
+      "district": "Jhapa",
+      "candidate": "Candidate C",
+      "party": "RSP",
+      "votes": 22300,
+      "runner_up": "Candidate D",
+      "runner_votes": 21010,
+      "status": "won"
+    },
+    {
+      "const": "Jhapa-3",
+      "district": "Jhapa",
+      "candidate": "Candidate E",
+      "party": "CPN-UML",
+      "votes": 19870,
+      "runner_up": "Candidate F",
+      "runner_votes": 19120,
+      "status": "counting"
+    },
+    {
+      "const": "Kathmandu-1",
+      "district": "Kathmandu",
+      "candidate": "Candidate G",
+      "party": "RSP",
+      "votes": 24500,
+      "runner_up": "Candidate H",
+      "runner_votes": 21900,
+      "status": "counting"
+    },
+    {
+      "const": "Kathmandu-2",
+      "district": "Kathmandu",
+      "candidate": "Candidate I",
+      "party": "NC",
+      "votes": 21440,
+      "runner_up": "Candidate J",
+      "runner_votes": 20350,
+      "status": "counting"
+    }
+  ],
   "summary": "RSP leading with 71 seats (won: 2, leading: 69). Nepali Congress at 10 seats. CPN-UML at 5 seats. NCP Maoist at 4 seats. Counting ongoing across 165 constituencies. Balen Shah leading KP Oli by 11,309 votes in Jhapa-5.",
   "ticker": "RSP total 71 seats | Balen leads KP Oli by 11,309 in Jhapa-5 | Sobita leads Renu Dahal by 1,983 in Chitwan-3 | Rabi Lamichhane leads by 4,371 in Chitwan-2",
   "source": "onlinekhabar.com",
