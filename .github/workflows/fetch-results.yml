@@ -1,0 +1,35 @@
+name: Fetch Nepal Election Results
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # every 5 minutes
+  workflow_dispatch:          # allows manual trigger from GitHub
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Fetch election results
+        run: python fetch_results.py
+
+      - name: Commit and push data.json
+        run: |
+          git config user.name "Election Bot"
+          git config user.email "bot@elections.np"
+          git add data.json
+          git diff --staged --quiet || git commit -m "Update election results $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
